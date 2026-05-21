@@ -588,12 +588,578 @@
 //   );
 // }
 
+// "use client";
+
+// import { usePathname } from "next/navigation";
+// import Link from "next/link";
+// import { useState } from "react";
+// import { Menu, X } from "lucide-react";
+
+// export default function Navbar() {
+//   const pathname = usePathname();
+//   const [open, setOpen] = useState(false);
+
+//   const links = [
+//     { href: "/", label: "Home" },
+//     { href: "/about", label: "About" },
+//     { href: "/projects", label: "Projects" },
+//     { href: "/contact", label: "Contact" },
+//   ];
+
+//   const isActive = (href: string) =>
+//     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+//   return (
+//     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+//       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4 text-white">
+
+//         {/* LOGO */}
+//         <Link href="/" className="text-xl font-bold">
+//           Komron<span className="text-blue-500">.</span>
+//         </Link>
+
+//         {/* DESKTOP */}
+//         <div className="hidden md:flex items-center gap-8">
+//           {links.map((l) => (
+//             <Link
+//               key={l.href}
+//               href={l.href}
+//               className="relative text-sm text-gray-400 hover:text-white transition"
+//             >
+//               {l.label}
+
+//               {/* underline animation */}
+//               <span
+//                 className={`absolute left-0 -bottom-1 h-[2px] bg-blue-500 transition-all duration-300
+//                 ${isActive(l.href) ? "w-full" : "w-0"}`}
+//               />
+//             </Link>
+//           ))}
+
+//           {/* AUTH */}
+//           <Link
+//             href="/login"
+//             className="px-3 py-1 bg-white text-black rounded"
+//           >
+//             Login
+//           </Link>
+
+//           <Link
+//             href="/register"
+//             className="px-3 py-1 bg-gray-800 text-white rounded"
+//           >
+//             Register
+//           </Link>
+//         </div>
+
+//         {/* MOBILE BUTTON */}
+//         <button onClick={() => setOpen(!open)} className="md:hidden">
+//           {open ? <X size={28} /> : <Menu size={28} />}
+//         </button>
+//       </div>
+
+//       {/* MOBILE MENU */}
+//       {open && (
+//         <div className="md:hidden fixed top-0 left-0 w-full h-screen bg-black flex flex-col items-center justify-center gap-8">
+//           {links.map((l) => (
+//             <Link
+//               key={l.href}
+//               href={l.href}
+//               onClick={() => setOpen(false)}
+//               className="text-2xl relative text-gray-400 hover:text-white"
+//             >
+//               {l.label}
+
+//               <span
+//                 className={`absolute left-0 -bottom-2 h-[2px] bg-blue-500 transition-all
+//                 ${isActive(l.href) ? "w-full" : "w-0"}`}
+//               />
+//             </Link>
+//           ))}
+
+//           <Link
+//             href="/login"
+//             onClick={() => setOpen(false)}
+//             className="px-5 py-2 bg-white text-black rounded"
+//           >
+//             Login
+//           </Link>
+
+//           <Link
+//             href="/register"
+//             onClick={() => setOpen(false)}
+//             className="px-5 py-2 bg-gray-800 text-white rounded"
+//           >
+//             Register
+//           </Link>
+//         </div>
+//       )}
+//     </nav>
+//   );
+// }
+
+
+
+
+
+
+
+// "use client";
+
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+// import { useState } from "react";
+// import Logo from './Logo'
+
+// export default function Navbar() {
+//   const pathname = usePathname();
+
+//   const [open, setOpen] = useState(false);
+
+//   const links = [
+//     {
+//       href: "/",
+//       label: "Home",
+//     },
+//     {
+//       href: "/about",
+//       label: "About",
+//     },
+//     {
+//       href: "/projects",
+//       label: "Projects",
+//     },
+//     {
+//       href: "/contact",
+//       label: "Contact",
+//     },
+//   ];
+
+//   const active = (href: string) =>
+//     href === "/"
+//       ? pathname === "/"
+//       : pathname.startsWith(href);
+
+//   return (
+//     <>
+//       {/* TOP ENERGY LINE */}
+//       <div
+//         className="
+//         fixed
+//         top-0
+//         left-0
+//         w-full
+//         h-[1px]
+//         z-[70]
+//         bg-gradient-to-r
+//         from-transparent
+//         via-red-500
+//         to-transparent
+//         animate-pulse
+//       "
+//       />
+
+//       <nav
+//         className="
+//         fixed
+//         top-0
+//         left-0
+//         w-full
+//         z-50
+
+//         bg-black/45
+//         backdrop-blur-xl
+
+//         border-b
+//         border-red-900/30
+//       "
+//       >
+//         {/* glow */}
+//         <div
+//           className="
+//           absolute
+//           inset-0
+
+//           bg-gradient-to-r
+//           from-red-950/10
+//           via-red-500/5
+//           to-red-950/10
+//         "
+//         />
+
+//         <div
+//           className="
+//           relative
+//           max-w-7xl
+//           mx-auto
+
+//           px-8
+//           h-[76px]
+
+//           flex
+//           items-center
+//           justify-between
+//         "
+//         >
+//           {/* LOGO */}
+
+//           <Link
+//             href="/"
+//             className="
+//               text-white
+//               text-2xl
+//               font-black
+
+//               hover:scale-105
+//               transition
+//             "
+//           >
+//             <Logo />
+
+//             <span
+//               className="
+//               text-red-500
+//               drop-shadow-[0_0_16px_red]
+//             "
+//             >
+              
+//             </span>
+//           </Link>
+
+//           {/* DESKTOP */}
+
+//           <div className="hidden md:flex items-center gap-10">
+//             {links.map((l) => (
+//               <Link
+//                 key={l.href}
+//                 href={l.href}
+//                 className="
+//                   relative
+//                   group
+//                   py-2
+//                 "
+//               >
+//                 <span
+//                   className={`
+//                     relative
+//                     z-10
+
+//                     transition
+
+//                     ${
+//                       active(l.href)
+//                         ? `
+//                       text-white
+//                     `
+//                         : `
+//                       text-gray-400
+//                       group-hover:text-red-300
+//                     `
+//                     }
+//                   `}
+//                 >
+//                   {l.label}
+//                 </span>
+
+//                 {/* ACTIVE LINE */}
+
+//                 <span
+//                   className={`
+//                     absolute
+//                     left-0
+//                     bottom-0
+
+//                     h-[2px]
+
+//                     bg-gradient-to-r
+//                     from-red-700
+//                     via-red-400
+//                     to-red-700
+
+//                     shadow-[0_0_20px_red]
+
+//                     transition-all
+//                     duration-500
+
+//                     ${
+//                       active(l.href)
+//                         ? "w-full"
+//                         : `
+//                         w-0
+//                         group-hover:w-full
+//                       `
+//                     }
+//                   `}
+//                 />
+
+//                 {/* glow */}
+//                 <span
+//                   className="
+//                   absolute
+//                   inset-0
+
+//                   rounded
+
+//                   opacity-0
+//                   group-hover:opacity-100
+
+//                   transition
+
+//                   bg-red-500/5
+//                 "
+//                 />
+//               </Link>
+//             ))}
+
+//             {/* AUTH */}
+
+//             <Link
+//               href="/login"
+//               className="
+//                 px-5
+//                 py-2
+
+//                 rounded-xl
+
+//                 border
+//                 border-red-500/40
+
+//                 text-white
+
+//                 hover:bg-red-500
+//                 hover:text-black
+
+//                 transition
+//               "
+//             >
+//               Login
+//             </Link>
+
+//             <Link
+//               href="/register"
+//               className="
+//                 px-5
+//                 py-2
+
+//                 rounded-xl
+
+//                 bg-red-600
+
+//                 shadow-[0_0_24px_rgba(255,0,0,.4)]
+
+//                 hover:scale-105
+
+//                 transition
+//               "
+//             >
+//               Register
+//             </Link>
+//           </div>
+
+//           {/* BURGER */}
+
+//           <button
+//             onClick={() => setOpen(!open)}
+//             className="
+//             md:hidden
+
+//             relative
+
+//             w-[42px]
+//             h-[42px]
+
+//             rounded-xl
+
+//             border
+//             border-red-500/40
+//           "
+//           >
+//             <span
+//               className={`
+//                 absolute
+//                 left-[10px]
+//                 top-[13px]
+
+//                 w-[20px]
+//                 h-[2px]
+
+//                 bg-red-400
+
+//                 transition
+
+//                 ${
+//                   open
+//                     ? `
+//                     rotate-45
+//                     translate-y-[6px]
+//                   `
+//                     : ""
+//                 }
+//               `}
+//             />
+
+//             <span
+//               className={`
+//                 absolute
+//                 left-[10px]
+//                 top-[19px]
+
+//                 w-[20px]
+//                 h-[2px]
+
+//                 bg-red-400
+
+//                 transition
+
+//                 ${
+//                   open
+//                     ? "opacity-0"
+//                     : ""
+//                 }
+//               `}
+//             />
+
+//             <span
+//               className={`
+//                 absolute
+//                 left-[10px]
+//                 top-[25px]
+
+//                 w-[20px]
+//                 h-[2px]
+
+//                 bg-red-400
+
+//                 transition
+
+//                 ${
+//                   open
+//                     ? `
+//                     -rotate-45
+//                     -translate-y-[6px]
+//                   `
+//                     : ""
+//                 }
+//               `}
+//             />
+//           </button>
+//         </div>
+//       </nav>
+
+//       {/* MOBILE */}
+
+//       <div
+//         className={`
+//           fixed
+//           top-0
+//           right-0
+
+//           z-40
+
+//           w-full
+//           h-screen
+
+//           bg-black/95
+//           backdrop-blur-2xl
+
+//           transition
+
+//           ${
+//             open
+//               ? "translate-x-0"
+//               : "translate-x-full"
+//           }
+//         `}
+//       >
+//         <div
+//           className="
+//           h-full
+
+//           flex
+//           flex-col
+
+//           justify-center
+//           items-center
+
+//           gap-8
+//         "
+//         >
+//           {links.map((l) => (
+//             <Link
+//               key={l.href}
+//               href={l.href}
+//               onClick={() => setOpen(false)}
+//               className={`
+//                 text-3xl
+
+//                 transition
+
+//                 ${
+//                   active(l.href)
+//                     ? `
+//                     text-white
+//                     scale-110
+//                   `
+//                     : `
+//                     text-gray-400
+//                   `
+//                 }
+//               `}
+//             >
+//               {l.label}
+//             </Link>
+//           ))}
+
+//           <div className="mt-10 flex flex-col gap-4 w-[220px]">
+//             <Link
+//               href="/login"
+//               onClick={() => setOpen(false)}
+//               className="
+//                 text-center
+
+//                 py-3
+
+//                 rounded-xl
+
+//                 border
+//                 border-red-500
+
+//                 text-white
+//               "
+//             >
+//               Login
+//             </Link>
+
+//             <Link
+//               href="/register"
+//               onClick={() => setOpen(false)}
+//               className="
+//                 text-center
+
+//                 py-3
+
+//                 rounded-xl
+
+//                 bg-red-600
+
+//                 shadow-[0_0_30px_red]
+//               "
+//             >
+//               Register
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
 "use client";
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import Logo from './Logo';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -606,94 +1172,299 @@ export default function Navbar() {
     { href: "/contact", label: "Contact" },
   ];
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const active = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(href);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4 text-white">
+    <>
+      {/* TOP ENERGY LINE */}
+      <div
+        className="
+        fixed
+        top-0
+        left-0
+        w-full
+        h-[1px]
+        z-[70]
+        bg-gradient-to-r
+        from-transparent
+        via-red-500
+        to-transparent
+        animate-pulse
+      "
+      />
 
-        {/* LOGO */}
-        <Link href="/" className="text-xl font-bold">
-          Komron<span className="text-blue-500">.</span>
-        </Link>
+      <nav
+        className="
+        fixed
+        top-0
+        left-0
+        w-full
+        z-50
+        bg-black/45
+        backdrop-blur-xl
+        border-b
+        border-red-900/30
+      "
+      >
+        {/* glow */}
+        <div
+          className="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-red-950/10
+          via-red-500/5
+          to-red-950/10
+        "
+        />
 
-        {/* DESKTOP */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
+        <div
+          className="
+          relative
+          max-w-7xl
+          mx-auto
+          px-8
+          h-[76px]
+          flex
+          items-center
+          justify-between
+        "
+        >
+          {/* LOGO CONTAINER */}
+          {/* 🛠 Убрал внешний Link, так как он уже есть внутри компонента <Logo /> */}
+          <div className="flex items-center justify-center hover:scale-105 transition duration-200">
+            <Logo />
+          </div>
+
+          {/* DESKTOP */}
+          <div className="hidden md:flex items-center gap-10">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="
+                  relative
+                  group
+                  py-2
+                "
+              >
+                <span
+                  className={`
+                    relative
+                    z-10
+                    transition
+                    ${
+                      active(l.href)
+                        ? "text-white"
+                        : "text-gray-400 group-hover:text-red-300"
+                    }
+                  `}
+                >
+                  {l.label}
+                </span>
+
+                {/* ACTIVE LINE */}
+                <span
+                  className={`
+                    absolute
+                    left-0
+                    bottom-0
+                    h-[2px]
+                    bg-gradient-to-r
+                    from-red-700
+                    via-red-400
+                    to-red-700
+                    shadow-[0_0_20px_red]
+                    transition-all
+                    duration-500
+                    ${active(l.href) ? "w-full" : "w-0 group-hover:w-full"}
+                  `}
+                />
+
+                {/* glow */}
+                <span
+                  className="
+                  absolute
+                  inset-0
+                  rounded
+                  opacity-0
+                  group-hover:opacity-100
+                  transition
+                  bg-red-500/5
+                "
+                />
+              </Link>
+            ))}
+
+            {/* AUTH */}
             <Link
-              key={l.href}
-              href={l.href}
-              className="relative text-sm text-gray-400 hover:text-white transition"
+              href="/login"
+              className="
+                px-5
+                py-2
+                rounded-xl
+                border
+                border-red-500/40
+                text-white
+                hover:bg-red-500
+                hover:text-black
+                transition
+              "
             >
-              {l.label}
-
-              {/* underline animation */}
-              <span
-                className={`absolute left-0 -bottom-1 h-[2px] bg-blue-500 transition-all duration-300
-                ${isActive(l.href) ? "w-full" : "w-0"}`}
-              />
+              Login
             </Link>
-          ))}
 
-          {/* AUTH */}
-          <Link
-            href="/login"
-            className="px-3 py-1 bg-white text-black rounded"
-          >
-            Login
-          </Link>
+            <Link
+              href="/register"
+              className="
+                px-5
+                py-2
+                rounded-xl
+                bg-red-600
+                shadow-[0_0_24px_rgba(255,0,0,.4)]
+                hover:scale-105
+                transition
+              "
+            >
+              Register
+            </Link>
+          </div>
 
-          <Link
-            href="/register"
-            className="px-3 py-1 bg-gray-800 text-white rounded"
+          {/* BURGER */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="
+            md:hidden
+            relative
+            w-[42px]
+            h-[42px]
+            rounded-xl
+            border
+            border-red-500/40
+          "
           >
-            Register
-          </Link>
+            <span
+              className={`
+                absolute
+                left-[10px]
+                top-[13px]
+                w-[20px]
+                h-[2px]
+                bg-red-400
+                transition
+                ${open ? "rotate-45 translate-y-[6px]" : ""}
+              `}
+            />
+
+            <span
+              className={`
+                absolute
+                left-[10px]
+                top-[19px]
+                w-[20px]
+                h-[2px]
+                bg-red-400
+                transition
+                ${open ? "opacity-0" : ""}
+              `}
+            />
+
+            <span
+              className={`
+                absolute
+                left-[10px]
+                top-[2026-05-21]
+                top-[25px]
+                w-[20px]
+                h-[2px]
+                bg-red-400
+                transition
+                ${open ? "-rotate-45 -translate-y-[6px]" : ""}
+              `}
+            />
+          </button>
         </div>
+      </nav>
 
-        {/* MOBILE BUTTON */}
-        <button onClick={() => setOpen(!open)} className="md:hidden">
-          {open ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* MOBILE MENU */}
-      {open && (
-        <div className="md:hidden fixed top-0 left-0 w-full h-screen bg-black flex flex-col items-center justify-center gap-8">
+      {/* MOBILE */}
+      <div
+        className={`
+          fixed
+          top-0
+          right-0
+          z-40
+          w-full
+          h-screen
+          bg-black/95
+          backdrop-blur-2xl
+          transition
+          ${open ? "translate-x-0" : "translate-x-full"}
+        `}
+      >
+        <div
+          className="
+          h-full
+          flex
+          flex-col
+          justify-center
+          items-center
+          gap-8
+        "
+        >
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-2xl relative text-gray-400 hover:text-white"
+              className={`
+                text-3xl
+                transition
+                ${
+                  active(l.href)
+                    ? "text-white scale-110"
+                    : "text-gray-400"
+                }
+              `}
             >
               {l.label}
-
-              <span
-                className={`absolute left-0 -bottom-2 h-[2px] bg-blue-500 transition-all
-                ${isActive(l.href) ? "w-full" : "w-0"}`}
-              />
             </Link>
           ))}
 
-          <Link
-            href="/login"
-            onClick={() => setOpen(false)}
-            className="px-5 py-2 bg-white text-black rounded"
-          >
-            Login
-          </Link>
+          <div className="mt-10 flex flex-col gap-4 w-[220px]">
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="
+                text-center
+                py-3
+                rounded-xl
+                border
+                border-red-500
+                text-white
+              "
+            >
+              Login
+            </Link>
 
-          <Link
-            href="/register"
-            onClick={() => setOpen(false)}
-            className="px-5 py-2 bg-gray-800 text-white rounded"
-          >
-            Register
-          </Link>
+            <Link
+              href="/register"
+              onClick={() => setOpen(false)}
+              className="
+                text-center
+                py-3
+                rounded-xl
+                bg-red-600
+                shadow-[0_0_30px_red]
+              "
+            >
+              Register
+            </Link>
+          </div>
         </div>
-      )}
-    </nav>
+      </div>
+    </>
   );
 }

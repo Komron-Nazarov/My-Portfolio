@@ -168,53 +168,382 @@
 //   );
 // }
 
+// import Image from "next/image";
+// import { notFound } from "next/navigation";
+
+// // пока используем локальные данные
+// import { projects as localProjects } from "@/app/data/projects";
+
+// export default async function ProjectPage({
+//   params,
+// }: {
+//   params: Promise<{ slug: string }>; // 👈 Next.js 16 требует, чтобы params был Promise
+// }) {
+//   const { slug } = await params; // 👈 Обязательно делаем await перед деструктуризацией
+
+//   // 🔥 пока БД НЕТ → используем local
+//   const project = localProjects.find((p) => p.slug === slug);
+
+//   // ❌ если не найден — отдаем стандартную 404 страницу Next.js
+//   if (!project) {
+//     notFound();
+//   }
+
+//   return (
+//     <main className="bg-black text-white min-h-screen p-10 max-w-5xl mx-auto">
+//       <h1 className="text-4xl font-bold">{project.title}</h1>
+
+//       <Image
+//         src={project.image}
+//         alt={project.title}
+//         width={1000}
+//         height={600}
+//         className="rounded-2xl mt-6 object-cover"
+//         priority // Картинка на странице проекта важная, загружаем её быстрее
+//       />
+
+//       <p className="text-gray-400 mt-6 text-lg">
+//         {project.description}
+//       </p>
+
+//       <div className="flex flex-wrap gap-3 mt-6">
+//         {project.stack.map((tech) => (
+//           <span
+//             key={tech}
+//             className="bg-gray-800 px-3 py-1 rounded-full text-sm"
+//           >
+//             {tech}
+//           </span>
+//         ))}
+//       </div>
+//     </main>
+//   );
+// }
+
+
+
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-// пока используем локальные данные
 import { projects as localProjects } from "@/app/data/projects";
 
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>; // 👈 Next.js 16 требует, чтобы params был Promise
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
-  const { slug } = await params; // 👈 Обязательно делаем await перед деструктуризацией
+  const { slug } = await params;
 
-  // 🔥 пока БД НЕТ → используем local
-  const project = localProjects.find((p) => p.slug === slug);
+  const project =
+    localProjects.find(
+      (p) => p.slug === slug
+    );
 
-  // ❌ если не найден — отдаем стандартную 404 страницу Next.js
   if (!project) {
     notFound();
   }
 
   return (
-    <main className="bg-black text-white min-h-screen p-10 max-w-5xl mx-auto">
-      <h1 className="text-4xl font-bold">{project.title}</h1>
+    <main
+      className="
+      relative
 
-      <Image
-        src={project.image}
-        alt={project.title}
-        width={1000}
-        height={600}
-        className="rounded-2xl mt-6 object-cover"
-        priority // Картинка на странице проекта важная, загружаем её быстрее
+      min-h-screen
+
+      overflow-hidden
+
+      px-6
+      pt-[140px]
+      pb-[80px]
+
+      text-white
+    "
+    >
+      {/* RED SPACE */}
+
+      <div
+        className="
+        absolute
+
+        top-[5%]
+        right-[10%]
+
+        w-[500px]
+        h-[500px]
+
+        rounded-full
+
+        bg-red-700/10
+
+        blur-[180px]
+      "
       />
 
-      <p className="text-gray-400 mt-6 text-lg">
-        {project.description}
-      </p>
+      <div
+        className="
+        absolute
 
-      <div className="flex flex-wrap gap-3 mt-6">
-        {project.stack.map((tech) => (
-          <span
-            key={tech}
-            className="bg-gray-800 px-3 py-1 rounded-full text-sm"
+        bottom-[10%]
+        left-[10%]
+
+        w-[400px]
+        h-[400px]
+
+        rounded-full
+
+        bg-red-500/10
+
+        blur-[180px]
+      "
+      />
+
+      <div
+        className="
+        relative
+
+        max-w-6xl
+        mx-auto
+      "
+      >
+        {/* TOP */}
+
+        <div
+          className="
+          mb-12
+        "
+        >
+          <div
+            className="
+            inline-flex
+
+            px-5
+            py-2
+
+            rounded-full
+
+            border
+            border-red-500/30
+
+            text-red-400
+
+            bg-red-950/20
+          "
           >
-            {tech}
-          </span>
-        ))}
+            ● PROJECT
+          </div>
+
+          <h1
+            className="
+            mt-8
+
+            text-5xl
+            md:text-7xl
+
+            font-black
+
+            leading-tight
+          "
+          >
+            {project.title}
+          </h1>
+
+          <div
+            className="
+            w-[150px]
+
+            h-[2px]
+
+            mt-8
+
+            bg-gradient-to-r
+            from-red-500
+            to-transparent
+            "
+          />
+        </div>
+
+        {/* CARD */}
+
+        <div
+          className="
+          rounded-[32px]
+
+          overflow-hidden
+
+          border
+          border-red-900/40
+
+          bg-black/30
+
+          backdrop-blur-xl
+
+          shadow-[0_0_100px_rgba(255,0,0,.08)]
+        "
+        >
+          <div className="relative">
+
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={1400}
+              height={800}
+              priority
+              className="
+              w-full
+
+              max-h-[700px]
+
+              object-cover
+              "
+            />
+
+            <div
+              className="
+              absolute
+              bottom-0
+
+              w-full
+              h-[250px]
+
+              bg-gradient-to-t
+              from-black
+              to-transparent
+              "
+            />
+          </div>
+
+          <div className="p-10">
+
+            <h2
+              className="
+              text-2xl
+
+              font-bold
+
+              mb-6
+            "
+            >
+              Overview
+            </h2>
+
+            <p
+              className="
+              text-gray-300
+
+              text-lg
+
+              leading-9
+            "
+            >
+              {project.description}
+            </p>
+
+            {/* STACK */}
+
+            <div className="mt-10">
+
+              <div
+                className="
+                text-red-400
+
+                mb-5
+              "
+              >
+                Technologies
+              </div>
+
+              <div
+                className="
+                flex
+                flex-wrap
+
+                gap-3
+              "
+              >
+                {project.stack.map((tech) => (
+                  <div
+                    key={tech}
+                    className="
+                    px-5
+                    py-2
+
+                    rounded-full
+
+                    border
+                    border-red-900
+
+                    bg-black/40
+
+                    hover:border-red-500
+
+                    hover:shadow-[0_0_20px_rgba(255,0,0,.4)]
+
+                    transition
+                    "
+                  >
+                    {tech}
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
+            {/* ACTIONS */}
+
+            <div
+              className="
+              flex
+              flex-wrap
+
+              gap-4
+
+              mt-12
+            "
+            >
+
+              <a
+                href="#"
+                className="
+                px-8
+                py-4
+
+                rounded-2xl
+
+                bg-red-600
+
+                hover:bg-red-500
+
+                transition
+                "
+              >
+                Live Demo
+              </a>
+
+              <a
+                href="#"
+                className="
+                px-8
+                py-4
+
+                rounded-2xl
+
+                border
+                border-red-900
+
+                hover:border-red-500
+
+                transition
+                "
+              >
+                GitHub
+              </a>
+
+            </div>
+
+          </div>
+        </div>
       </div>
     </main>
   );

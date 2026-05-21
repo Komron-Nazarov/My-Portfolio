@@ -224,51 +224,280 @@
 
 
 
+// import { supabase } from "@/lib/supabase";
+// import ProjectCard from "../components/ProjectCard";
+
+// export default async function Projects() {
+//   const { data: projects, error } = await supabase
+//     .from("projects")
+//     .select("*");
+
+//   if (error) {
+//     console.log(error);
+//     return (
+//       <div className="text-red-500 text-center py-10">
+//         {error.message}
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <section className="px-6 py-20 text-center mt-20">
+//       {/* 🛠 Убрал случайный знак вопроса перед заголовком */}
+//       <h2 className="text-4xl font-bold mb-10">
+//         My Projects
+//       </h2>
+
+//       {/* Проверяем: если проектов вообще нет или массив пустой */}
+//       {!projects || projects.length === 0 ? (
+//         <div className="mt-10 p-8 border border-dashed border-gray-800 rounded-2xl max-w-md mx-auto bg-gray-900/20">
+//           <p className="text-gray-400 text-lg font-medium">
+//             Пока проектов нету
+//           </p>
+//           <p className="text-gray-600 text-sm mt-1">
+//             Они появятся сразу, как только я добавлю их в админку.
+//           </p>
+//         </div>
+//       ) : (
+//         /* Если проекты есть — рендерим сетку карточек */
+//         <div className="grid gap-6 md:grid-cols-3">
+//           {projects.map((project) => (
+//             <ProjectCard
+//               key={project.slug}
+//               project={project}
+//             />
+//           ))}
+//         </div>
+//       )}
+//     </section>
+//   );
+// }
+
 import { supabase } from "@/lib/supabase";
 import ProjectCard from "../components/ProjectCard";
 
 export default async function Projects() {
-  const { data: projects, error } = await supabase
-    .from("projects")
-    .select("*");
+  const { data: projects, error } =
+    await supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", {
+        ascending: false,
+      });
 
   if (error) {
-    console.log(error);
     return (
-      <div className="text-red-500 text-center py-10">
-        {error.message}
-      </div>
+      <section className="min-h-screen flex items-center justify-center">
+        <div
+          className="
+          border
+          border-red-900
+
+          rounded-3xl
+
+          px-10
+          py-8
+
+          bg-black/30
+          backdrop-blur-xl
+        "
+        >
+          <p className="text-red-400">
+            {error.message}
+          </p>
+        </div>
+      </section>
     );
   }
 
   return (
-    <section className="px-6 py-20 text-center mt-20">
-      {/* 🛠 Убрал случайный знак вопроса перед заголовком */}
-      <h2 className="text-4xl font-bold mb-10">
-        My Projects
-      </h2>
+    <section
+      className="
+      relative
 
-      {/* Проверяем: если проектов вообще нет или массив пустой */}
-      {!projects || projects.length === 0 ? (
-        <div className="mt-10 p-8 border border-dashed border-gray-800 rounded-2xl max-w-md mx-auto bg-gray-900/20">
-          <p className="text-gray-400 text-lg font-medium">
-            Пока проектов нету
-          </p>
-          <p className="text-gray-600 text-sm mt-1">
-            Они появятся сразу, как только я добавлю их в админку.
-          </p>
+      min-h-screen
+
+      px-6
+      pt-[150px]
+      pb-[100px]
+
+      overflow-hidden
+    "
+    >
+      {/* RED LIGHT */}
+
+      <div
+        className="
+        absolute
+        top-[20%]
+        right-[10%]
+
+        w-[500px]
+        h-[500px]
+
+        rounded-full
+
+        bg-red-700/10
+
+        blur-[180px]
+      "
+      />
+
+      <div
+        className="
+        max-w-7xl
+        mx-auto
+
+        relative
+      "
+      >
+        {/* HEADER */}
+
+        <div
+          className="
+          mb-20
+
+          text-center
+        "
+        >
+          <div
+            className="
+            inline-flex
+
+            px-5
+            py-2
+
+            rounded-full
+
+            border
+            border-red-500/30
+
+            text-red-400
+
+            bg-red-950/20
+          "
+          >
+            ● MY WORK
+          </div>
+
+          <h1
+            className="
+            mt-8
+
+            text-5xl
+            md:text-7xl
+
+            font-black
+
+            text-white
+          "
+          >
+            Featured
+
+            <span
+              className="
+              block
+
+              text-red-500
+
+              drop-shadow-[0_0_30px_red]
+            "
+            >
+              Projects
+            </span>
+          </h1>
+
+          <div
+            className="
+            mt-8
+
+            max-w-2xl
+            mx-auto
+
+            text-gray-400
+            text-lg
+          "
+          >
+            Collection of web applications,
+            systems and experiments
+            built with modern technologies.
+          </div>
         </div>
-      ) : (
-        /* Если проекты есть — рендерим сетку карточек */
-        <div className="grid gap-6 md:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-            />
-          ))}
-        </div>
-      )}
+
+        {/* EMPTY */}
+
+        {!projects?.length ? (
+          <div
+            className="
+            max-w-xl
+            mx-auto
+
+            rounded-[32px]
+
+            p-14
+
+            bg-black/30
+
+            border
+            border-red-900/40
+
+            backdrop-blur-xl
+
+            text-center
+          "
+          >
+            <div
+              className="
+              text-red-500
+
+              text-6xl
+
+              mb-5
+            "
+            >
+              ◎
+            </div>
+
+            <h3
+              className="
+              text-3xl
+              text-white
+
+              mb-4
+            "
+            >
+              No Projects Yet
+            </h3>
+
+            <p
+              className="
+              text-gray-500
+            "
+            >
+              New projects will appear
+              automatically from admin panel.
+            </p>
+          </div>
+        ) : (
+          <div
+            className="
+            grid
+
+            gap-8
+
+            md:grid-cols-2
+            xl:grid-cols-3
+          "
+          >
+            {projects.map((project) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

@@ -1336,11 +1336,27 @@ type Project = {
 
 export default function AdminPage() {
   const router = useRouter();
-
+type Toast = {
+  id: number;
+  message: string;
+  type: "success" | "error" | "info";
+};
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [projects, setProjects] = useState<Project[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  
+
+const [toasts, setToasts] = useState<Toast[]>([]);
+function toast(message: string, type: Toast["type"] = "info") {
+  const id = Date.now();
+
+  setToasts((prev) => [...prev, { id, message, type }]);
+
+  setTimeout(() => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, 3000);
+}
 
   const [form, setForm] = useState({
     slug: "",
@@ -1409,24 +1425,85 @@ export default function AdminPage() {
   }
 
   // UPLOAD
+  // async function uploadImage(file: File) {
+  //   const fileName = `${Date.now()}-${file.name}`;
+
+  //   const { data, error } = await supabase.storage
+  //     .from("images")
+  //     .upload(fileName, file);
+
+  //   if (error) {
+  //     alert(error.message);
+  //     return null;
+  //   }
+
+  //   const { data: urlData } = supabase.storage
+  //     .from("images")
+  //     .getPublicUrl(data.path);
+
+  //   return urlData.publicUrl;
+  // }
+
+
   async function uploadImage(file: File) {
-    const fileName = `${Date.now()}-${file.name}`;
+try {
 
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(fileName, file);
+setLoading(true);
 
-    if (error) {
-      alert(error.message);
-      return null;
-    }
+const ext =
+file.name.split(".").pop();
 
-    const { data: urlData } = supabase.storage
-      .from("images")
-      .getPublicUrl(data.path);
+const fileName =
+`${Date.now()}-${Math.random()
+.toString(36)
+.slice(2)}.${ext}`;
 
-    return urlData.publicUrl;
-  }
+const { data, error } =
+await supabase.storage
+.from("images")
+.upload(
+fileName,
+file,
+{
+cacheControl: "3600",
+upsert: true,
+}
+);
+
+if (error) {
+console.log(error);
+toast(error.message);
+
+return null;
+}
+
+const {
+data: { publicUrl },
+} =
+supabase.storage
+.from("images")
+.getPublicUrl(
+data.path
+);
+
+console.log(publicUrl);
+
+return publicUrl;
+
+}
+catch (e) {
+
+console.log(e);
+
+return null;
+
+}
+finally {
+
+setLoading(false);
+
+}
+}
 
   // ADD
   async function addProject() {
@@ -1446,7 +1523,7 @@ export default function AdminPage() {
 
     setLoading(false);
 
-    if (error) return alert(error.message);
+    if (error) return toast(error.message);
 
     await loadProjects();
     resetForm();
@@ -1462,7 +1539,7 @@ export default function AdminPage() {
       .delete()
       .eq("id", id);
 
-    if (error) return alert(error.message);
+    if (error) return toast(error.message);
 
     setProjects((p) => p.filter((x) => x.id !== id));
   }
@@ -1499,7 +1576,7 @@ export default function AdminPage() {
       })
       .eq("id", editingId);
 
-    if (error) return alert(error.message);
+    if (error) return toast(error.message);
 
     await loadProjects();
     resetForm();
@@ -1515,7 +1592,25 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen text-white relative overflow-hidden bg-black">
-
+<div className="fixed top-4 right-4 flex flex-col gap-2 z-50">
+  {toasts.map((t) => (
+    <div
+      key={t.id}
+      className={`
+        px-4 py-2 rounded-xl text-sm border backdrop-blur-md
+        ${
+          t.type === "success"
+            ? "bg-green-500/20 border-green-500"
+            : t.type === "error"
+            ? "bg-red-500/20 border-red-500"
+            : "bg-white/10 border-white/20"
+        }
+      `}
+    >
+      {t.message}
+    </div>
+  ))}
+</div>
       {/* BACKGROUND */}
       <div className="absolute inset-0 bg-gradient-to-br from-red-950/10 via-black to-black" />
       <div className="absolute w-[600px] h-[600px] bg-red-600/10 blur-[140px] rounded-full top-1/3 left-1/2 -translate-x-1/2" />
@@ -1561,7 +1656,7 @@ export default function AdminPage() {
             onChange={(e) => setForm({ ...form, image: e.target.value })}
           />
 
-          <input
+          {/* <input
             type="file"
             className="p-3 bg-black/60 border border-red-500/20 rounded-xl cursor-pointer"
             onChange={async (e) => {
@@ -1571,7 +1666,49 @@ export default function AdminPage() {
               const url = await uploadImage(file);
               if (url) setForm({ ...form, image: url });
             }}
-          />
+          /> */}
+
+          <input
+  type="file"
+  accept="image/*"
+  disabled={loading}
+  className="
+    p-3
+    bg-black/60
+    border border-red-500/20
+    rounded-xl
+    cursor-pointer
+    file:bg-red-600
+    file:border-0
+    file:px-4
+    file:py-2
+    file:rounded-lg
+    file:text-white
+    file:mr-3
+  "
+  onChange={async (e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const url = await uploadImage(file);
+
+    if (!url) {
+     toast("Project added", "success");
+      return;
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      image: url,
+    }));
+
+    toast("Image uploaded");
+  }}
+  
+/>
+
+
 
           <input
             placeholder="stack (react,next)"

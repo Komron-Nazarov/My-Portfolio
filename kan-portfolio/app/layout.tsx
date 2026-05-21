@@ -22,6 +22,7 @@
 import "./globals.css";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Navbar from "./components/Navbar";
+import { Toaster } from "sonner"
 
 export default function RootLayout({
   children,
@@ -42,6 +43,11 @@ export default function RootLayout({
         <div className="relative z-10 pt-20">
           {children}
         </div>
+
+         <Toaster
+          position="top-right"
+          richColors
+        />
 
       </body>
     </html>

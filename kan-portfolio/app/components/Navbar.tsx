@@ -1158,19 +1158,28 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLang } from "@/src/hooks/useLang";
 import { useState } from "react";
 import Logo from './Logo';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { lang, changeLang, t } = useLang();
 
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/contact", label: "Contact" },
-  ];
+  // const links = [
+  //   { href: "/", label: "Home" },
+  //   { href: "/about", label: "About" },
+  //   { href: "/projects", label: "Projects" },
+  //   { href: "/contact", label: "Contact" },
+  // ];
+
+const links = [
+  { href: "/", label: t.home },
+  { href: "/about", label: t.about },
+  { href: "/projects", label: t.projects },
+  { href: "/contact", label: t.contact },
+];
 
   const active = (href: string) =>
     href === "/"
@@ -1299,6 +1308,20 @@ export default function Navbar() {
               </Link>
             ))}
 
+<button
+  onClick={() => changeLang(lang === "en" ? "ru" : "en")}
+  className="
+    px-4 py-2
+    rounded-xl
+    border border-red-500/40
+    text-white
+    hover:bg-red-500/20
+    transition
+  "
+>
+  {lang.toUpperCase()}
+</button>
+
             {/* AUTH */}
             <Link
               href="/login"
@@ -1314,7 +1337,7 @@ export default function Navbar() {
                 transition
               "
             >
-              Login
+         {t.login}
             </Link>
 
             <Link
@@ -1329,7 +1352,7 @@ export default function Navbar() {
                 transition
               "
             >
-              Register
+            {t.register}
             </Link>
           </div>
 
@@ -1446,7 +1469,7 @@ export default function Navbar() {
                 text-white
               "
             >
-              Login
+            {t.login}
             </Link>
 
             <Link
@@ -1460,7 +1483,7 @@ export default function Navbar() {
                 shadow-[0_0_30px_red]
               "
             >
-              Register
+             {t.register}
             </Link>
           </div>
         </div>

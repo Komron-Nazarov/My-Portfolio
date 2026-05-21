@@ -177,11 +177,13 @@ import { motion } from "framer-motion";
 export default function ProjectCard({
   project,
 }: any) {
+  // const imageSrc =
+  //   typeof project.image === "string" &&
+  //   project.image.startsWith("http")
+  //     ? project.image
+  //     : null;
   const imageSrc =
-    typeof project.image === "string" &&
-    project.image.startsWith("http")
-      ? project.image
-      : null;
+project.image || "/placeholder.png";
 
   return (
     <motion.article

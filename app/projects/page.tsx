@@ -276,6 +276,8 @@
 import { supabase } from "@/lib/supabase";
 import ProjectCard from "../components/ProjectCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function Projects() {
   const { data: projects, error } =
     await supabase

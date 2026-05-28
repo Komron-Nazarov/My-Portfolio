@@ -3,6 +3,8 @@ import Projects from "./projects/page";
 import About from "./about/page";
 import Contact from "./contact/page";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <main>

@@ -1445,65 +1445,102 @@ function toast(message: string, type: Toast["type"] = "info") {
   // }
 
 
+//   async function uploadImage(file: File) {
+// try {
+
+// setLoading(true);
+
+// const ext =
+// file.name.split(".").pop();
+
+// const fileName =
+// `${Date.now()}-${Math.random()
+// .toString(36)
+// .slice(2)}.${ext}`;
+
+// const { data, error } =
+// await supabase.storage
+// .from("images")
+// .upload(
+// fileName,
+// file,
+// {
+// cacheControl: "3600",
+// upsert: true,
+// }
+// );
+
+// if (error) {
+// console.log(error);
+// toast(error.message);
+
+// return null;
+// }
+
+// const {
+// data: { publicUrl },
+// } =
+// supabase.storage
+// .from("images")
+// .getPublicUrl(
+// data.path
+// );
+
+// console.log(publicUrl);
+
+// return publicUrl;
+
+// }
+// catch (e) {
+
+// console.log(e);
+
+// return null;
+
+// }
+// finally {
+
+// setLoading(false);
+
+// }
+// }
+
+// ОБНОВЛЕННАЯ ФУНКЦИЯ ЗАГРУЗКИ
   async function uploadImage(file: File) {
-try {
+    try {
+      setLoading(true);
+      const ext = file.name.split(".").pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
-setLoading(true);
+      // Загружаем в бакет "images"
+      const { data, error } = await supabase.storage
+        .from("images")
+        .upload(fileName, file, {
+          cacheControl: "3600",
+          upsert: true,
+        });
 
-const ext =
-file.name.split(".").pop();
+      if (error) {
+        console.error("Supabase Storage Error:", error);
+        toast(error.message, "error");
+        return null;
+      }
 
-const fileName =
-`${Date.now()}-${Math.random()
-.toString(36)
-.slice(2)}.${ext}`;
+      // Получаем публичную ссылку
+      const { data: { publicUrl } } = supabase.storage
+        .from("images")
+        .getPublicUrl(data.path);
 
-const { data, error } =
-await supabase.storage
-.from("images")
-.upload(
-fileName,
-file,
-{
-cacheControl: "3600",
-upsert: true,
-}
-);
+      return publicUrl;
+    } catch (e) {
+      console.error("Upload Catch Error:", e);
+      toast("Ошибка при чтении файла", "error");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }
 
-if (error) {
-console.log(error);
-toast(error.message);
-
-return null;
-}
-
-const {
-data: { publicUrl },
-} =
-supabase.storage
-.from("images")
-.getPublicUrl(
-data.path
-);
-
-console.log(publicUrl);
-
-return publicUrl;
-
-}
-catch (e) {
-
-console.log(e);
-
-return null;
-
-}
-finally {
-
-setLoading(false);
-
-}
-}
 
   // ADD
   async function addProject() {
@@ -1668,7 +1705,7 @@ setLoading(false);
             }}
           /> */}
 
-          <input
+          {/* <input
   type="file"
   accept="image/*"
   disabled={loading}
@@ -1706,8 +1743,71 @@ setLoading(false);
     toast("Image uploaded");
   }}
   
-/>
+/> */}
 
+
+<input
+            type="file"
+            accept="image/*"
+            disabled={loading}
+            className="
+              p-3
+              bg-black/60
+              border border-red-500/20
+              rounded-xl
+              cursor-pointer
+              file:bg-red-600
+              file:border-0
+              file:px-4
+              file:py-2
+              file:rounded-lg
+              file:text-white
+              file:mr-3
+            "
+            // onChange={async (e) => {
+            //   const file = e.target.files?.[0];
+            //   if (!file) return;
+
+            //   const url = await uploadImage(file);
+
+            //   // Если загрузка не удалась, просто выходим (ошибка уже покажется внутри uploadImage)
+            //   if (!url) return;
+
+            //   setForm((prev) => ({
+            //     ...prev,
+            //     image: url,
+            //   }));
+
+            //   toast("Image uploaded successfully!", "success");
+            // }}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+
+              setLoading(true);
+              const reader = new FileReader();
+              
+              reader.onloadend = () => {
+                const base64String = reader.result as string;
+                
+                // Записываем Base64 строку прямо в поле картинки формы
+                setForm((prev) => ({
+                  ...prev,
+                  image: base64String,
+                }));
+                
+                setLoading(false);
+                toast("Картинка успешно прочитана с ПК!", "success");
+              };
+
+              reader.onerror = () => {
+                setLoading(false);
+                toast("Ошибка при чтении файла", "error");
+              };
+
+              reader.readAsDataURL(file);
+            }}
+          />
 
 
           <input

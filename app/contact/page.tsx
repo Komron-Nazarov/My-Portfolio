@@ -211,6 +211,7 @@
 "use client";
 
 import { useState } from "react";
+import TypingTitle from "../components/TypingTitle";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -291,9 +292,21 @@ export default function Contact() {
             CONTACT
           </span>
 
-          <h2 className="mt-6 text-5xl font-black text-white">
+          {/* <h2 className="mt-6 text-5xl font-black text-white">
             Send Signal
-          </h2>
+          </h2> */}
+
+          <TypingTitle
+  className="mt-6 text-5xl font-black text-white"
+  parts={[
+    {
+      text: "Send ",
+    },
+    {
+      text: "Signal",
+    },
+  ]}
+/>
 
           <p className="mt-4 text-gray-400 max-w-lg mx-auto">
             Reach out for collaboration, projects or ideas.

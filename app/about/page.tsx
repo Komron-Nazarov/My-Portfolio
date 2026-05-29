@@ -1,3 +1,5 @@
+import TypingTitle from "../components/TypingTitle";
+
 export default function About() {
   return (
     <section
@@ -74,7 +76,7 @@ export default function About() {
             ● ABOUT ME
           </div>
 
-          <h1
+          {/* <h1
             className="
             text-5xl
             md:text-7xl
@@ -115,7 +117,43 @@ export default function About() {
             from-red-500
             to-transparent
           "
-          />
+          /> */}
+
+          <TypingTitle
+  className="
+    text-5xl
+    md:text-7xl
+    font-black
+    leading-tight
+    text-white
+  "
+  parts={[
+    {
+      text: "Building\n",
+    },
+    {
+      text: "Digital\n",
+      className: `
+        text-red-500
+        drop-shadow-[0_0_30px_red]
+      `,
+    },
+    {
+      text: "Systems",
+    },
+  ]}
+/>
+
+<div
+  className="
+    mt-10
+    w-[140px]
+    h-[2px]
+    bg-gradient-to-r
+    from-red-500
+    to-transparent
+  "
+/>
 
           <p
             className="

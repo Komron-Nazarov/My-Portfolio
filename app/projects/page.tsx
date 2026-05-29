@@ -275,6 +275,7 @@
 
 import { supabase } from "@/lib/supabase";
 import ProjectCard from "../components/ProjectCard";
+import TypingTitle from "../components/TypingTitle";
 
 export const dynamic = "force-dynamic";
 
@@ -382,7 +383,7 @@ export default async function Projects() {
             ● MY WORK
           </div>
 
-          <h1
+          {/* <h1
             className="
             mt-8
 
@@ -407,9 +408,31 @@ export default async function Projects() {
             >
               Projects
             </span>
-          </h1>
+          </h1> */}
 
-          <div
+
+<TypingTitle
+  className="
+    mt-8
+    text-5xl
+    md:text-7xl
+    font-black
+    text-white
+  "
+  parts={[
+    {
+      text: "Featured ",
+    },
+    {
+      text: "Projects",
+      className: `
+        text-red-500
+        drop-shadow-[0_0_30px_red]
+      `,
+    },
+  ]}
+/>
+      <div
             className="
             mt-8
 

@@ -68,10 +68,21 @@ export async function POST(req: Request) {
     });
 
     return Response.json({ success: true, data });
-  } catch (error: any) {
-    return Response.json(
-      { error: error.message },
-      { status: 500 }
-    );
-  }
+  // } catch (error: any) {
+  //   return Response.json(
+  //     { error: error.message },
+  //     { status: 500 }
+  //   );
+  // }
+  } catch (error: unknown) {
+  const message =
+    error instanceof Error
+      ? error.message
+      : "Something went wrong";
+
+  return Response.json(
+    { error: message },
+    { status: 500 }
+  );
+}
 }

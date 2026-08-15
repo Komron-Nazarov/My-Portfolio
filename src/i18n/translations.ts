@@ -1,46 +1,91 @@
 export const translations = {
   en: {
+    // Navigation
+    home: "Home",
+    about: "About",
+    projects: "Projects",
+    contact: "Contact",
+
+    // Auth
+    login: "Login",
+    register: "Register",
+
+    // Hero
+    hero: {
+      eyebrow: "SOFTWARE DEVELOPER",
+      titleFirst: "I build",
+      titleSecond: "digital products.",
+      description:
+        "I build web applications, backend systems and mobile interfaces — from architecture and engineering to a working product.",
+      projects: "View projects",
+      contact: "Get in touch",
+      available: "Open to new opportunities",
+      based: "Web · Backend · Mobile",
+      role: "Software Developer",
+      currentlyBuilding: "Currently building",
+      digitalProducts: "Digital products",
+      scroll: "Scroll",
+    },
+
+    // Admin
     admin: "Admin",
     addProject: "Add Project",
     updateProject: "Update Project",
     delete: "Delete",
     edit: "Edit",
-    slug: "slug",
-    title: "title",
-    description: "description",
-    image: "image url",
-    stack: "stack (react,next)",
-    github: "github",
-    demo: "demo",
+    slug: "Slug",
+    title: "Title",
+    description: "Description",
+    image: "Image URL",
+    stack: "Stack",
+    github: "GitHub",
+    demo: "Demo",
     loading: "Loading...",
-    home: "Home",
-about: "About",
-projects: "Projects",
-contact: "Contact",
-login: "Login",
-register: "Register",
   },
 
   ru: {
+    // Навигация
+    home: "Главная",
+    about: "Обо мне",
+    projects: "Проекты",
+    contact: "Контакты",
+
+    // Авторизация
+    login: "Войти",
+    register: "Регистрация",
+
+    // Hero
+    hero: {
+      eyebrow: "РАЗРАБОТЧИК ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ",
+      titleFirst: "Создаю",
+      titleSecond: "цифровые продукты.",
+      description:
+        "Разрабатываю веб-приложения, backend-системы и мобильные интерфейсы — от архитектуры и разработки до рабочего продукта.",
+      projects: "Смотреть проекты",
+      contact: "Связаться",
+      available: "Открыт к новым проектам",
+      based: "Web · Backend · Mobile",
+      role: "Software Developer",
+      currentlyBuilding: "Сейчас разрабатываю",
+      digitalProducts: "Цифровые продукты",
+      scroll: "Листайте",
+    },
+
+    // Админ-панель
     admin: "Админ",
     addProject: "Добавить проект",
     updateProject: "Обновить проект",
     delete: "Удалить",
     edit: "Редактировать",
-    slug: "слаг",
-    title: "название",
-    description: "описание",
-    image: "ссылка на изображение",
-    stack: "стек (react,next)",
-    github: "github",
-    demo: "demo",
+    slug: "Слаг",
+    title: "Название",
+    description: "Описание",
+    image: "Ссылка на изображение",
+    stack: "Стек",
+    github: "GitHub",
+    demo: "Демо",
     loading: "Загрузка...",
-    home: "Главная",
-about: "Обо мне",
-projects: "Проекты",
-contact: "Контакты",
-login: "Войти",
-register: "Регистрация",
   },
-};
+} as const;
 
+export type Language = keyof typeof translations;

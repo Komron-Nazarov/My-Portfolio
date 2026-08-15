@@ -1369,33 +1369,33 @@ function toast(message: string, type: Toast["type"] = "info") {
   });
 
   // AUTH
-  useEffect(() => {
-    const check = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+useEffect(() => {
+  const check = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-      if (!session) {
-        router.replace("/login");
-        return;
-      }
+    if (!session) {
+      router.replace("/login");
+      return;
+    }
 
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", session.user.id)
-        .single();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", session.user.id)
+      .single();
 
-      if (profile?.role !== "admin") {
-        router.replace("/");
-        return;
-      }
+    if (profile?.role !== "admin") {
+      router.replace("/");
+      return;
+    }
 
-      setCheckingAuth(false);
-    };
+    setCheckingAuth(false);
+  };
 
-    check();
-  }, []);
+  check();
+}, [router]);
 
   // LOAD
   useEffect(() => {
@@ -1506,40 +1506,40 @@ function toast(message: string, type: Toast["type"] = "info") {
 // }
 
 // ОБНОВЛЕННАЯ ФУНКЦИЯ ЗАГРУЗКИ
-  async function uploadImage(file: File) {
-    try {
-      setLoading(true);
-      const ext = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  // async function uploadImage(file: File) {
+  //   try {
+  //     setLoading(true);
+  //     const ext = file.name.split(".").pop();
+  //     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
-      // Загружаем в бакет "images"
-      const { data, error } = await supabase.storage
-        .from("images")
-        .upload(fileName, file, {
-          cacheControl: "3600",
-          upsert: true,
-        });
+  //     // Загружаем в бакет "images"
+  //     const { data, error } = await supabase.storage
+  //       .from("images")
+  //       .upload(fileName, file, {
+  //         cacheControl: "3600",
+  //         upsert: true,
+  //       });
 
-      if (error) {
-        console.error("Supabase Storage Error:", error);
-        toast(error.message, "error");
-        return null;
-      }
+  //     if (error) {
+  //       console.error("Supabase Storage Error:", error);
+  //       toast(error.message, "error");
+  //       return null;
+  //     }
 
-      // Получаем публичную ссылку
-      const { data: { publicUrl } } = supabase.storage
-        .from("images")
-        .getPublicUrl(data.path);
+  //     // Получаем публичную ссылку
+  //     const { data: { publicUrl } } = supabase.storage
+  //       .from("images")
+  //       .getPublicUrl(data.path);
 
-      return publicUrl;
-    } catch (e) {
-      console.error("Upload Catch Error:", e);
-      toast("Ошибка при чтении файла", "error");
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  }
+  //     return publicUrl;
+  //   } catch (e) {
+  //     console.error("Upload Catch Error:", e);
+  //     toast("Ошибка при чтении файла", "error");
+  //     return null;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
 
   // ADD

@@ -1,57 +1,3 @@
-// // // "use client";
-
-// // // import { motion } from "framer-motion";
-
-// // // export default function Hero() {
-// // //   return (
-// // //     <section className="flex flex-col text-center px-6 pt-28 md:pt-32 items-center justify-center min-h-[80vh]">
-
-// // //       <motion.h1
-// // //         initial={{ opacity: 0, y: 20 }}
-// // //         animate={{ opacity: 1, y: 0 }}
-// // //         transition={{ duration: 0.6 }}
-// // //         className="text-5xl font-bold mb-4"
-// // //       >
-// // //         Komron Nazarov
-// // //       </motion.h1>
-
-// // //       <motion.p
-// // //         initial={{ opacity: 0 }}
-// // //         animate={{ opacity: 1 }}
-// // //         transition={{ delay: 0.3 }}
-// // //         className="text-xl text-gray-300 mb-2"
-// // //       >
-// // //         Full-stack Developer
-// // //       </motion.p>
-
-// // //       <motion.p
-// // //         initial={{ opacity: 0 }}
-// // //         animate={{ opacity: 1 }}
-// // //         transition={{ delay: 0.5 }}
-// // //         className="max-w-xl text-gray-400 mb-6"
-// // //       >
-// // //         I build modern web applications using Next.js, Go and PostgreSQL.
-// // //         I focus on performance, clean architecture and real-world systems.
-// // //       </motion.p>
-
-// // //       <motion.a
-// // //         href="#contact"
-// // //         initial={{ opacity: 0 }}
-// // //         animate={{ opacity: 1 }}
-// // //         transition={{ delay: 0.7 }}
-// // //         className="px-6 py-3 bg-white text-black rounded-xl hover:bg-gray-300 transition"
-// // //       >
-// // //         Contact Me
-// // //       </motion.a>
-
-// // //     </section>
-// // //   );
-// // // }
-
-
-
-
-
 // // "use client";
 
 // // import Link from "next/link";
@@ -894,100 +840,171 @@
 // }
 
 
-
-
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
+
 import {
   motion,
-  type MotionValue,
   useMotionValue,
   useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, Mail } from "lucide-react";
+
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Mail,
+} from "lucide-react";
 
 import { useLang } from "@/src/hooks/useLang";
 
-const technologies = [
-  { label: "Next.js", position: "left-[2%] top-[18%]" },
-  { label: "Go / Gin", position: "right-[-2%] top-[22%]" },
-  { label: "PostgreSQL", position: "left-[-4%] bottom-[20%]" },
+/* =========================================================
+   STACK
+========================================================= */
+
+const stack = [
+  "Next.js",
+  "TypeScript",
+  "React",
+  "Go / Gin",
+  "Python / Aiogram",
+  "PostgreSQL",
+  "Supabase",
+  "Swift / SwiftUI",
+  "UIKit",
+  "Docker",
 ];
 
-type FloatingTechnologyProps = {
-  label: string;
-  position: string;
-  index: number;
-  springX: MotionValue<number>;
-  springY: MotionValue<number>;
+/* =========================================================
+   BRAND WORD
+
+   1. Initially white
+   2. Turns red
+   3. Hover = whole word rises forward
+========================================================= */
+
+type BrandWordProps = {
+  word: string;
   reduceMotion: boolean | null;
+  className?: string;
 };
 
-function FloatingTechnology({
-  label,
-  position,
-  index,
-  springX,
-  springY,
+function BrandWord({
+  word,
   reduceMotion,
-}: FloatingTechnologyProps) {
-  const depth = index + 1;
-
-  const x = useTransform(
-    springX,
-    [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-depth * 4, depth * 4]
-  );
-
-  const y = useTransform(
-    springY,
-    [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-depth * 3, depth * 3]
-  );
-
+  className = "",
+}: BrandWordProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        duration: 0.55,
-        delay: 0.85 + index * 0.08,
+    <motion.span
+      initial={{
+        color: "#ffffff",
+        y: 0,
+        scale: 1,
+        rotateX: 0,
       }}
-      style={{ x, y }}
+      animate={{
+        color: "#dc2626",
+      }}
+      whileHover={
+        reduceMotion
+          ? undefined
+          : {
+              y: -8,
+              scale: 1.055,
+              rotateX: -4,
+              filter: "brightness(1.12)",
+              textShadow:
+                "0 12px 30px rgba(220,38,38,0.20)",
+            }
+      }
+      transition={{
+        color: {
+          duration: 0.6,
+          delay: 1.1,
+          ease: [0.22, 1, 0.36, 1],
+        },
+
+        y: {
+          duration: 0.3,
+          ease: [0.16, 1, 0.3, 1],
+        },
+
+        scale: {
+          duration: 0.3,
+          ease: [0.16, 1, 0.3, 1],
+        },
+
+        rotateX: {
+          duration: 0.3,
+          ease: [0.16, 1, 0.3, 1],
+        },
+
+        filter: {
+          duration: 0.3,
+        },
+
+        textShadow: {
+          duration: 0.3,
+        },
+      }}
       className={`
-        absolute
-        z-20
-        hidden
-        rounded-full
-        border
-        border-white/[0.1]
-        bg-[#0b0b0b]/85
-        px-4
-        py-2
-        text-[11px]
-        font-medium
-        tracking-wide
-        text-white/55
-        shadow-xl
-        backdrop-blur-xl
-        md:block
-        ${position}
+        relative
+        inline-block
+        cursor-default
+        select-none
+        origin-bottom
+        will-change-transform
+        ${className}
       `}
+      style={{
+        perspective: 700,
+        transformStyle: "preserve-3d",
+      }}
     >
-      {label}
-    </motion.div>
+      {word}
+    </motion.span>
   );
 }
 
+/* =========================================================
+   HERO
+========================================================= */
+
 export default function Hero() {
   const { t } = useLang();
+
   const content = t.hero;
+
   const reduceMotion = useReducedMotion();
+
+  /* =======================================================
+     TRANSLATED KEYWORD ACCENTS
+  ======================================================= */
+
+  const titleWords =
+    content.titleSecond.trim().split(" ");
+
+  const titleAccent =
+    titleWords.pop() ?? "";
+
+  const titleBase =
+    titleWords.join(" ");
+
+  const buildingWords =
+    content.digitalProducts.trim().split(" ");
+
+  const buildingAccent =
+    buildingWords.pop() ?? "";
+
+  const buildingBase =
+    buildingWords.join(" ");
+
+  /* =======================================================
+     MOUSE VALUES
+  ======================================================= */
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -1004,49 +1021,103 @@ export default function Hero() {
     mass: 0.45,
   });
 
+  /* =======================================================
+     PHOTO 3D
+  ======================================================= */
+
   const rotateY = useTransform(
     springX,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-4, 4]
+    reduceMotion
+      ? [0, 0]
+      : [-4, 4]
   );
 
   const rotateX = useTransform(
     springY,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [4, -4]
+    reduceMotion
+      ? [0, 0]
+      : [4, -4]
   );
 
   const photoX = useTransform(
     springX,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-10, 10]
+    reduceMotion
+      ? [0, 0]
+      : [-10, 10]
   );
 
   const photoY = useTransform(
     springY,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-8, 8]
+    reduceMotion
+      ? [0, 0]
+      : [-8, 8]
   );
+
+  /* =======================================================
+     AMBIENT MOVEMENT
+  ======================================================= */
 
   const glowX = useTransform(
     springX,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-70, 70]
+    reduceMotion
+      ? [0, 0]
+      : [-70, 70]
   );
 
   const glowY = useTransform(
     springY,
     [-0.5, 0.5],
-    reduceMotion ? [0, 0] : [-55, 55]
+    reduceMotion
+      ? [0, 0]
+      : [-55, 55]
   );
 
-  function handleMouseMove(event: React.MouseEvent<HTMLElement>) {
+  /* =======================================================
+     STATUS CARD
+  ======================================================= */
+
+  const statusX = useTransform(
+    springX,
+    [-0.5, 0.5],
+    reduceMotion
+      ? [0, 0]
+      : [-7, 7]
+  );
+
+  const statusY = useTransform(
+    springY,
+    [-0.5, 0.5],
+    reduceMotion
+      ? [0, 0]
+      : [-5, 5]
+  );
+
+  /* =======================================================
+     EVENTS
+  ======================================================= */
+
+  function handleMouseMove(
+    event: React.MouseEvent<HTMLElement>
+  ) {
     if (reduceMotion) return;
 
-    const rect = event.currentTarget.getBoundingClientRect();
+    const rect =
+      event.currentTarget.getBoundingClientRect();
 
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    const x =
+      (event.clientX - rect.left) /
+        rect.width -
+      0.5;
+
+    const y =
+      (event.clientY - rect.top) /
+        rect.height -
+      0.5;
 
     mouseX.set(x);
     mouseY.set(y);
@@ -1066,14 +1137,19 @@ export default function Hero() {
         relative
         min-h-screen
         overflow-hidden
+
         bg-[#050505]
+
         px-6
-        pb-16
+        pb-20
         pt-28
+
         text-white
       "
     >
-      {/* ambient background */}
+      {/* ===================================================
+          BACKGROUND
+      =================================================== */}
 
       <div className="pointer-events-none absolute inset-0">
         <motion.div
@@ -1083,12 +1159,17 @@ export default function Hero() {
           }}
           className="
             absolute
+
             right-[8%]
             top-[16%]
+
             h-[520px]
             w-[520px]
+
             rounded-full
-            bg-indigo-500/[0.035]
+
+            bg-white/[0.018]
+
             blur-[170px]
           "
         />
@@ -1096,45 +1177,66 @@ export default function Hero() {
         <div
           className="
             absolute
+
             left-[10%]
             top-[10%]
+
             h-[460px]
             w-[460px]
+
             rounded-full
-            bg-white/[0.02]
+
+            bg-white/[0.018]
+
             blur-[160px]
           "
         />
+
+        {/* GRID */}
 
         <div
           className="
             absolute
             inset-0
+
             opacity-[0.022]
           "
           style={{
             backgroundImage:
               "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
-            backgroundSize: "84px 84px",
+
+            backgroundSize:
+              "84px 84px",
           }}
         />
+
+        {/* VIGNETTE */}
 
         <div
           className="
             absolute
             inset-0
+
             bg-[radial-gradient(circle_at_center,transparent_20%,#050505_88%)]
           "
         />
       </div>
 
+      {/* ===================================================
+          CONTENT
+      =================================================== */}
+
       <div
         className="
           container-main
+
           relative
           z-10
+
           flex
+
           min-h-[calc(100vh-9rem)]
+
           items-center
         "
       >
@@ -1142,141 +1244,263 @@ export default function Hero() {
           className="
             grid
             w-full
+
             grid-cols-1
             items-center
+
             gap-16
+
             lg:grid-cols-[1.05fr_0.95fr]
             lg:gap-20
           "
         >
-          {/* LEFT */}
+          {/* =================================================
+              LEFT
+          ================================================= */}
 
           <div className="max-w-3xl">
+            {/* AVAILABLE */}
+
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.55,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mb-8
+
                 inline-flex
                 items-center
                 gap-3
+
                 rounded-full
+
                 border
                 border-white/[0.1]
+
                 bg-white/[0.035]
+
                 px-4
                 py-2
+
                 backdrop-blur-xl
               "
             >
-              <span className="relative flex h-2 w-2">
-                <span
-                  className="
-                    absolute
-                    inline-flex
-                    h-full
-                    w-full
-                    animate-ping
-                    rounded-full
-                    bg-emerald-400
-                    opacity-50
-                  "
-                />
-                <span
-                  className="
-                    relative
-                    inline-flex
-                    h-2
-                    w-2
-                    rounded-full
-                    bg-emerald-400
-                  "
-                />
-              </span>
+              <span
+                className="
+                  h-[11px]
+                  w-[2px]
 
-              <span className="text-xs font-medium text-white/55">
+                  bg-red-600
+                "
+              />
+
+              <span
+                className="
+                  text-xs
+                  font-medium
+
+                  text-white/55
+                "
+              >
                 {content.available}
               </span>
             </motion.div>
 
+            {/* ROLE */}
+
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.08 }}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mb-5
+
                 text-xs
                 font-medium
                 uppercase
+
                 tracking-[0.27em]
+
                 text-white/35
               "
             >
               {content.eyebrow}
             </motion.p>
 
+            {/* =================================================
+                TITLE
+            ================================================= */}
+
             <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.12,
-                ease: [0.22, 1, 0.36, 1],
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+
+                visible: {
+                  transition: {
+                    delayChildren: 0.12,
+                    staggerChildren: 0.09,
+                  },
+                },
               }}
               className="
                 max-w-4xl
+
                 text-[clamp(3.5rem,8vw,7.3rem)]
+
                 font-semibold
+
                 leading-[0.88]
+
                 tracking-[-0.065em]
               "
             >
-              <span className="block text-white">
-                {content.titleFirst}
-              </span>
+              <motion.span
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 32,
+                    filter: "blur(8px)",
+                  },
 
-              <span
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+
+                    transition: {
+                      duration: 0.75,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+                className="
+                  block
+                  text-white
+                "
+              >
+                {content.titleFirst}
+              </motion.span>
+
+              <motion.span
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 32,
+                    filter: "blur(8px)",
+                  },
+
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+
+                    transition: {
+                      duration: 0.75,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
                 className="
                   mt-2
                   block
-                  bg-gradient-to-r
-                  from-white
-                  via-white/78
-                  to-white/30
-                  bg-clip-text
-                  text-transparent
+
+                  text-white
                 "
               >
-                {content.titleSecond}
-              </span>
+                {titleBase}{" "}
+
+                <BrandWord
+                  word={titleAccent}
+                  reduceMotion={reduceMotion}
+                  className="font-semibold"
+                />
+              </motion.span>
             </motion.h1>
 
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
+
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              initial={{
+                opacity: 0,
+                y: 18,
+                filter: "blur(5px)",
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+              }}
+              transition={{
+                duration: 0.75,
+                delay: 0.43,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-9
+
                 max-w-2xl
+
                 text-base
+
                 leading-8
-                text-white/43
+
+                text-white/62
+
                 md:text-lg
               "
             >
               {content.description}
             </motion.p>
 
+            {/* =================================================
+                CTA
+            ================================================= */}
+
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.45 }}
+              initial={{
+                opacity: 0,
+                y: 16,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.65,
+                delay: 0.55,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-10
+
                 flex
                 flex-col
+
                 gap-3
+
                 sm:flex-row
               "
             >
@@ -1284,21 +1508,33 @@ export default function Hero() {
                 href="/projects"
                 className="
                   group
+
                   inline-flex
                   items-center
                   justify-center
+
                   gap-3
+
                   rounded-full
+
                   bg-white
+
                   px-6
                   py-3.5
+
                   text-sm
                   font-medium
-                  text-black
+
+                  !text-black
+
                   transition-all
                   duration-300
+
                   hover:scale-[1.02]
+
                   hover:bg-white/90
+
+                  hover:shadow-[0_14px_42px_rgba(0,0,0,0.45)]
                 "
               >
                 {content.projects}
@@ -1308,6 +1544,7 @@ export default function Hero() {
                   className="
                     transition-transform
                     duration-300
+
                     group-hover:-translate-y-0.5
                     group-hover:translate-x-0.5
                   "
@@ -1318,83 +1555,211 @@ export default function Hero() {
                 href="/contact"
                 className="
                   group
+
                   inline-flex
                   items-center
                   justify-center
+
                   gap-3
+
                   rounded-full
+
                   border
                   border-white/[0.1]
+
                   bg-white/[0.035]
+
                   px-6
                   py-3.5
+
                   text-sm
                   font-medium
+
                   text-white
+
                   backdrop-blur-xl
+
                   transition-all
                   duration-300
-                  hover:border-white/[0.2]
-                  hover:bg-white/[0.07]
+
+                  hover:border-red-600/50
+
+                  hover:bg-white/[0.06]
                 "
               >
                 <Mail
                   size={16}
-                  className="text-white/45"
+                  className="
+                    text-white/45
+
+                    transition-all
+                    duration-300
+
+                    group-hover:text-red-500
+                    group-hover:-rotate-6
+                  "
                 />
 
                 {content.contact}
               </Link>
             </motion.div>
 
+            {/* =================================================
+                CORE STACK
+            ================================================= */}
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.65,
+                delay: 0.68,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-14
-                flex
-                flex-wrap
-                items-center
-                gap-x-5
-                gap-y-3
+
                 border-t
-                border-white/[0.07]
+                border-white/[0.09]
+
                 pt-6
               "
             >
-              {[
-                "Next.js",
-                "TypeScript",
-                "Go / Gin",
-                "Python / Aiogram",
-                "PostgreSQL",
-                "Swift",
-                "Docker",
-              ].map((technology) => (
+              <div
+                className="
+                  mb-4
+
+                  flex
+                  items-center
+                  gap-3
+                "
+              >
                 <span
-                  key={technology}
                   className="
-                    text-xs
-                    font-medium
-                    tracking-wide
-                    text-white/30
-                    transition-colors
-                    duration-300
-                    hover:text-white/65
+                    h-[12px]
+                    w-[2px]
+
+                    bg-red-600
+                  "
+                />
+
+                <span
+                  className="
+                    text-[10px]
+
+                    font-semibold
+                    uppercase
+
+                    tracking-[0.18em]
+
+                    text-white/45
                   "
                 >
-                  {technology}
+                {content.coreStack}
                 </span>
-              ))}
+              </div>
+
+              <div
+                className="
+                  flex
+                  flex-wrap
+
+                  gap-2.5
+                "
+              >
+                {stack.map(
+                  (technology, index) => (
+                    <motion.span
+                      key={technology}
+                      initial={{
+                        opacity: 0,
+                        y: 8,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.4,
+
+                        delay:
+                          0.75 +
+                          index * 0.05,
+
+                        ease: [
+                          0.22,
+                          1,
+                          0.36,
+                          1,
+                        ],
+                      }}
+                      whileHover={
+                        reduceMotion
+                          ? undefined
+                          : {
+                              y: -3,
+                              scale: 1.025,
+                            }
+                      }
+                      className="
+                        cursor-default
+
+                        rounded-full
+
+                        border
+                        border-white/[0.1]
+
+                        bg-white/[0.025]
+
+                        px-3.5
+                        py-2
+
+                        text-xs
+                        font-medium
+
+                        tracking-wide
+
+                        text-white/72
+
+                        transition-colors
+                        duration-300
+
+                        hover:border-red-600/60
+
+                        hover:bg-white/[0.045]
+
+                        hover:text-white
+                      "
+                    >
+                      {technology}
+                    </motion.span>
+                  )
+                )}
+              </div>
             </motion.div>
           </div>
 
-          {/* RIGHT */}
+          {/* =================================================
+              RIGHT / PHOTO
+          ================================================= */}
 
           <motion.div
-            initial={{ opacity: 0, x: 30, scale: 0.96 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
+            initial={{
+              opacity: 0,
+              x: 30,
+              scale: 0.96,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              scale: 1,
+            }}
             transition={{
               duration: 0.95,
               delay: 0.2,
@@ -1402,30 +1767,22 @@ export default function Hero() {
             }}
             className="
               relative
+
               mx-auto
+
               w-full
+
               max-w-[520px]
+
               lg:ml-auto
             "
             style={{
               perspective: 1300,
             }}
           >
-            {/* floating technology labels */}
-
-{technologies.map((technology, index) => (
-  <FloatingTechnology
-    key={technology.label}
-    label={technology.label}
-    position={technology.position}
-    index={index}
-    springX={springX}
-    springY={springY}
-    reduceMotion={reduceMotion}
-  />
-))}
-
-            {/* photo shell */}
+            {/* =================================================
+                PHOTO
+            ================================================= */}
 
             <motion.div
               style={{
@@ -1434,12 +1791,18 @@ export default function Hero() {
               }}
               className="
                 relative
+
                 aspect-[4/5]
+
                 overflow-hidden
+
                 rounded-[2rem]
+
                 border
                 border-white/[0.1]
+
                 bg-white/[0.025]
+
                 shadow-[0_40px_100px_rgba(0,0,0,0.45)]
               "
             >
@@ -1448,7 +1811,10 @@ export default function Hero() {
                   x: photoX,
                   y: photoY,
                 }}
-                className="absolute inset-[-12px]"
+                className="
+                  absolute
+                  inset-[-12px]
+                "
               >
                 <Image
                   src="/images/KAN.jpg"
@@ -1459,157 +1825,308 @@ export default function Hero() {
                   className="
                     object-cover
                     object-center
+
                     grayscale
+
+                    contrast-[1.05]
+
+                    brightness-[0.93]
                   "
                 />
               </motion.div>
 
+              {/* BOTTOM CONTRAST */}
+
               <div
                 className="
                   absolute
                   inset-0
+
                   bg-gradient-to-t
-                  from-black/80
-                  via-black/5
-                  to-black/10
+
+                  from-black/95
+                  via-black/20
+                  to-transparent
                 "
               />
+
+              {/* GLASS REFLECTION */}
 
               <div
                 className="
                   pointer-events-none
+
                   absolute
                   inset-0
+
                   bg-gradient-to-br
-                  from-white/[0.08]
+
+                  from-white/[0.07]
                   via-transparent
                   to-transparent
                 "
               />
 
-              <div
+              {/* =================================================
+                  PERSONAL INFO
+              ================================================= */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 12,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.9,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="
                   absolute
+
                   bottom-0
                   left-0
                   right-0
-                  flex
-                  items-end
-                  justify-between
-                  gap-6
+
                   p-6
+
                   md:p-8
                 "
               >
-                <div>
-                  <p className="text-sm font-medium text-white">
-                    Komron Nazarov
-                  </p>
+                <div className="max-w-[85%]">
+  {/* NAME */}
 
-                  <p className="mt-1 text-xs text-white/40">
-                    {content.role}
-                  </p>
-                </div>
+  <div className="inline-block">
+    <p
+      className="
+        text-lg
+        font-semibold
+        tracking-[-0.02em]
+        text-white
+        md:text-xl
+      "
+    >
+      {content.name}
+    </p>
 
-                <span
-                  className="
-                    hidden
-                    text-right
-                    text-[10px]
-                    uppercase
-                    tracking-[0.16em]
-                    text-white/30
-                    sm:block
-                  "
-                >
-                  {content.based}
-                </span>
-              </div>
+    <motion.div
+      initial={{
+        scaleX: 0,
+      }}
+      animate={{
+        scaleX: 1,
+      }}
+      transition={{
+        duration: 0.55,
+        delay: 1.05,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="
+        mt-2.5
+        h-[3px]
+        w-[72%]
+        origin-left
+        bg-red-600
+      "
+    />
+  </div>
+
+  {/* ROLE */}
+
+  <p
+    className="
+      mt-3
+      text-sm
+      font-medium
+      text-white/70
+    "
+  >
+    {content.role}
+  </p>
+
+  {/* AREAS */}
+
+  <p
+    className="
+      mt-2
+      text-[11px]
+      font-medium
+      tracking-[0.06em]
+      text-white/42
+    "
+  >
+    {content.areas}
+  </p>
+</div>
+              </motion.div>
             </motion.div>
 
-            {/* status card */}
+            {/* =================================================
+                CURRENTLY BUILDING
+            ================================================= */}
 
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 1 }}
+              initial={{
+                opacity: 0,
+                y: 18,
+                scale: 0.96,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              transition={{
+                duration: 0.55,
+                delay: 1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               style={{
-                x: useTransform(
-                  springX,
-                  [-0.5, 0.5],
-                  reduceMotion ? [0, 0] : [-7, 7]
-                ),
-                y: useTransform(
-                  springY,
-                  [-0.5, 0.5],
-                  reduceMotion ? [0, 0] : [-5, 5]
-                ),
+                x: statusX,
+                y: statusY,
               }}
               className="
                 absolute
-                -bottom-5
-                -left-5
+
+                -bottom-13
+                left-3
+
+                z-30
+
                 hidden
+
                 rounded-2xl
+
                 border
                 border-white/[0.1]
-                bg-[#0b0b0b]/90
+
+                bg-[#0b0b0b]/95
+
                 px-5
                 py-4
+
                 shadow-2xl
+
                 backdrop-blur-xl
+
                 sm:block
               "
             >
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-white/30">
-                  {content.currentlyBuilding}
-                </span>
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-3
+                "
+              >
+                <span
+                  className="
+                    h-[11px]
+                    w-[2px]
+
+                    bg-red-600
+                  "
+                />
 
                 <span
                   className="
-                    h-1.5
-                    w-1.5
-                    rounded-full
-                    bg-emerald-400
+                    text-xs
+
+                    text-white/35
                   "
-                />
+                >
+                  {
+                    content.currentlyBuilding
+                  }
+                </span>
               </div>
 
-              <p className="mt-1 text-sm font-medium text-white/75">
-                {content.digitalProducts}
+              <p
+                className="
+                  mt-1.5
+
+                  pl-[5px]
+
+                  text-sm
+                  font-medium
+
+                  text-white/80
+                "
+              >
+                {buildingBase}{" "}
+
+                <BrandWord
+                  word={buildingAccent}
+                  reduceMotion={reduceMotion}
+                  className="font-semibold"
+                />
               </p>
             </motion.div>
 
-            {/* GitHub */}
+            {/* =================================================
+                GITHUB — ONLY FLOATING ITEM
+            ================================================= */}
 
             <motion.a
               href="https://github.com/Komron-Nazarov"
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.05 }}
+              initial={{
+                opacity: 0,
+                scale: 0.85,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      scale: 1.1,
+                      rotate: -5,
+                    }
+              }
+              transition={{
+                duration: 0.5,
+                delay: 1.05,
+              }}
               className="
                 absolute
+
                 -right-4
                 top-8
+
                 flex
+
                 h-12
                 w-12
+
                 items-center
                 justify-center
+
                 rounded-full
+
                 border
                 border-white/[0.1]
+
                 bg-[#0b0b0b]/90
-                text-white/50
+
+                text-white/55
+
                 shadow-xl
+
                 backdrop-blur-xl
-                transition-all
+
+                transition-colors
                 duration-300
-                hover:scale-110
-                hover:border-white/[0.18]
+
+                hover:border-red-600/70
+
                 hover:text-white
               "
               aria-label="GitHub"
@@ -1628,26 +2145,50 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* ===================================================
+          SCROLL
+      =================================================== */}
+
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.25 }}
+        initial={{
+          opacity: 0,
+          y: -5,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 1.25,
+          duration: 0.6,
+        }}
         className="
           absolute
+
           bottom-8
           left-1/2
+
           hidden
+
           -translate-x-1/2
+
           items-center
           gap-3
+
           text-[10px]
           uppercase
+
           tracking-[0.25em]
+
           text-white/20
+
           md:flex
         "
       >
-        <span>{content.scroll}</span>
+        <span>
+          {content.scroll}
+        </span>
+
         <ArrowDownRight size={13} />
       </motion.div>
     </section>

@@ -1758,6 +1758,10 @@ export default function Navbar() {
 
               items-center
               justify-between
+
+              px-3
+    sm:px-6
+    lg:px-7
             "
             aria-label="Main navigation"
           >

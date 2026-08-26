@@ -639,7 +639,10 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 
 import {
   Code2,
@@ -704,6 +707,7 @@ const stackGroups = {
 
 export default function About() {
   const { t } = useLang();
+  const reduceMotion = useReducedMotion();
 
   const content = t.aboutSection;
 
@@ -1125,18 +1129,31 @@ export default function About() {
             <motion.div
               initial={{
                 opacity: 0,
-                y: 30,
+                x: reduceMotion ? 0 : 70,
+                rotateY: reduceMotion
+                  ? 0
+                  : -9,
+                filter: reduceMotion
+                  ? "blur(0px)"
+                  : "blur(12px)",
               }}
               whileInView={{
                 opacity: 1,
-                y: 0,
+                x: 0,
+                rotateY: 0,
+                filter: "blur(0px)",
               }}
               viewport={{
                 once: true,
               }}
               transition={{
-                duration: 0.7,
+                duration: reduceMotion
+                  ? 0.01
+                  : 0.85,
                 ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                transformPerspective: 1100,
               }}
               className="
                 rounded-[28px]
@@ -1214,16 +1231,16 @@ export default function About() {
                 className="
                   grid
 
-                  gap-px
+                  gap-3
 
-                  overflow-hidden
+                  overflow-visible
 
                   rounded-2xl
 
                   border
-                  border-white/[0.06]
+                  border-transparent
 
-                  bg-white/[0.06]
+                  bg-transparent
 
                   sm:grid-cols-2
                 "
@@ -1236,25 +1253,86 @@ export default function About() {
                     return (
                       <motion.div
                         key={group.title}
-                        initial={{
+                       initial={{
                           opacity: 0,
-                          y: 15,
+                          x: reduceMotion
+                            ? 0
+                            : index % 2 === 0
+                              ? -58
+                              : 58,
+                          rotateY: reduceMotion
+                            ? 0
+                            : index % 2 === 0
+                              ? 13
+                              : -13,
+                          rotateZ: reduceMotion
+                            ? 0
+                            : index % 2 === 0
+                              ? -1.5
+                              : 1.5,
+                          scale: reduceMotion
+                            ? 1
+                            : 0.92,
+                          filter: reduceMotion
+                            ? "blur(0px)"
+                            : "blur(8px)",
                         }}
                         whileInView={{
                           opacity: 1,
-                          y: 0,
+                          x: 0,
+                          rotateY: 0,
+                          rotateZ: 0,
+                          scale: 1,
+                          filter: "blur(0px)",
                         }}
                         viewport={{
                           once: true,
                         }}
                         transition={{
-                          duration: 0.45,
+                          duration: reduceMotion
+                            ? 0.01
+                            : 0.68,
 
                           delay:
-                            index * 0.05,
+                            index * 0.075,
+
+                          ease: [
+                            0.22,
+                            1,
+                            0.36,
+                            1,
+                          ],
                         }}
-                        whileHover={{
-                          y: -3,
+                        whileHover={
+                          reduceMotion
+                            ? undefined
+                            : {
+                                y: -12,
+                                scale: 1.055,
+                                rotateX: -7,
+                                rotateY:
+                                  index % 2 === 0
+                                    ? 10
+                                    : -10,
+                                z: 38,
+                                zIndex: 20,
+                                backgroundColor:
+                                  "rgba(18,18,18,1)",
+                                borderColor:
+                                  "rgba(239,68,68,0.72)",
+                                boxShadow:
+                                  "0 30px 70px rgba(0,0,0,0.62), 0 0 38px rgba(220,38,38,0.18), inset 0 0 0 1px rgba(239,68,68,0.12)",
+                                transition: {
+                                  type: "spring",
+                                  stiffness: 260,
+                                  damping: 19,
+                                },
+                              }
+                        }
+                        style={{
+                          transformPerspective: 900,
+                          transformStyle:
+                            "preserve-3d",
                         }}
                         className="
                           group
@@ -1263,12 +1341,18 @@ export default function About() {
 
                           bg-[#0a0a0a]
 
+                          rounded-2xl
+
+                          border
+                          border-white/[0.07]
+
                           p-6
 
                           transition-colors
                           duration-300
 
-                          hover:bg-white/[0.035]
+                          hover:border-red-500/70
+                          hover:bg-[#121212]
                         "
                       >
                         {/* TOP RED ACCENT */}

@@ -48,6 +48,7 @@ export const projects: Project[] = [
     image: "/projects/mbl.png",
     github: "",
     demo: "",
+    featured: false,
   },
 
   {
@@ -58,6 +59,7 @@ export const projects: Project[] = [
     image: "/projects/spm.png",
     github: "",
     demo: "",
+    featured: false,
   },
 
   {
@@ -68,5 +70,6 @@ export const projects: Project[] = [
     image: "/projects/tgb.png",
     github: "",
     demo: "",
+    featured: false,
   },
 ];

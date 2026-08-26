@@ -144,12 +144,16 @@ import {
   Mail,
 } from "lucide-react";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 
 import { useLang } from "@/src/hooks/useLang";
 
 export default function Footer() {
   const { t } = useLang();
+  const reduceMotion = useReducedMotion();
 
   const content = t.footerSection;
 
@@ -230,18 +234,31 @@ export default function Footer() {
           <motion.div
             initial={{
               opacity: 0,
-              y: 15,
+              x: reduceMotion ? 0 : -58,
+              rotateY: reduceMotion
+                ? 0
+                : 8,
+              filter: reduceMotion
+                ? "blur(0px)"
+                : "blur(9px)",
             }}
             whileInView={{
               opacity: 1,
-              y: 0,
+              x: 0,
+              rotateY: 0,
+              filter: "blur(0px)",
             }}
             viewport={{
               once: true,
             }}
             transition={{
-              duration: 0.6,
+              duration: reduceMotion
+                ? 0.01
+                : 0.8,
               ease: [0.22, 1, 0.36, 1],
+            }}
+            style={{
+              transformPerspective: 900,
             }}
           >
             <Link
@@ -322,18 +339,29 @@ export default function Footer() {
           <motion.div
             initial={{
               opacity: 0,
-              y: 15,
+              y: reduceMotion ? 0 : 34,
+              scale: reduceMotion
+                ? 1
+                : 0.94,
+              filter: reduceMotion
+                ? "blur(0px)"
+                : "blur(8px)",
             }}
             whileInView={{
               opacity: 1,
               y: 0,
+              scale: 1,
+              filter: "blur(0px)",
             }}
             viewport={{
               once: true,
             }}
             transition={{
-              duration: 0.6,
+              duration: reduceMotion
+                ? 0.01
+                : 0.78,
               delay: 0.06,
+              ease: [0.22, 1, 0.36, 1],
             }}
           >
             <div
@@ -404,18 +432,32 @@ export default function Footer() {
           <motion.div
             initial={{
               opacity: 0,
-              y: 15,
+              x: reduceMotion ? 0 : 58,
+              rotateY: reduceMotion
+                ? 0
+                : -8,
+              filter: reduceMotion
+                ? "blur(0px)"
+                : "blur(9px)",
             }}
             whileInView={{
               opacity: 1,
-              y: 0,
+              x: 0,
+              rotateY: 0,
+              filter: "blur(0px)",
             }}
             viewport={{
               once: true,
             }}
             transition={{
-              duration: 0.6,
+              duration: reduceMotion
+                ? 0.01
+                : 0.8,
               delay: 0.12,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            style={{
+              transformPerspective: 900,
             }}
           >
             <div
@@ -634,7 +676,27 @@ export default function Footer() {
             BOTTOM
         ================================================= */}
 
-        <div
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: reduceMotion ? 0 : 24,
+            clipPath: reduceMotion
+              ? "inset(0 0 0 0)"
+              : "inset(100% 0 0 0)",
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            clipPath: "inset(0 0 0 0)",
+          }}
+          viewport={{ once: true }}
+          transition={{
+            duration: reduceMotion
+              ? 0.01
+              : 0.75,
+            delay: 0.18,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="
             flex
             flex-col
@@ -748,7 +810,7 @@ export default function Footer() {
               />
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

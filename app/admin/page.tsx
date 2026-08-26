@@ -1913,6 +1913,7 @@ import {
   Pencil,
   Plus,
   Save,
+  Star,
   Trash2,
   X,
 } from "lucide-react";
@@ -1933,6 +1934,7 @@ type Project = {
   stack: string[];
   github?: string | null;
   demo?: string | null;
+  featured: boolean;
 };
 
 type ProjectForm = {
@@ -1943,6 +1945,7 @@ type ProjectForm = {
   stack: string;
   github: string;
   demo: string;
+  featured: boolean;
 };
 
 type Toast = {
@@ -1959,6 +1962,7 @@ const emptyForm: ProjectForm = {
   stack: "",
   github: "",
   demo: "",
+  featured: false,
 };
 
 /* =========================================================
@@ -1985,6 +1989,7 @@ export default function AdminPage() {
           projects: "Проекты",
           liveDemos: "Демо",
           publicSource: "Открытый код",
+          featuredProjects: "Избранные",
 
           editProject: "Редактирование проекта",
           newProject: "Новый проект",
@@ -1999,6 +2004,9 @@ export default function AdminPage() {
           image: "Изображение URL / Base64",
           github: "GitHub",
           liveDemo: "Демо",
+          featured: "Избранный проект",
+          featuredDescription:
+            "Показывать этот проект на главной странице.",
 
           titlePlaceholder: "Career AI",
           slugPlaceholder: "career-ai",
@@ -2022,6 +2030,9 @@ export default function AdminPage() {
             "Добавьте первый проект через форму.",
 
           edit: "Изменить",
+          markFeatured: "Добавить в избранное",
+          removeFeatured: "Убрать из избранного",
+          featuredUpdated: "Статус избранного обновлён.",
 
           slugRequired: "Slug обязателен.",
           titleRequired: "Название обязательно.",
@@ -2058,6 +2069,7 @@ export default function AdminPage() {
           projects: "Projects",
           liveDemos: "Live demos",
           publicSource: "Public source",
+          featuredProjects: "Featured",
 
           editProject: "Edit project",
           newProject: "New project",
@@ -2072,6 +2084,9 @@ export default function AdminPage() {
           image: "Image URL / Base64",
           github: "GitHub",
           liveDemo: "Live demo",
+          featured: "Featured project",
+          featuredDescription:
+            "Show this project on the home page.",
 
           titlePlaceholder: "Career AI",
           slugPlaceholder: "career-ai",
@@ -2095,6 +2110,9 @@ export default function AdminPage() {
             "Add your first project from the form.",
 
           edit: "Edit",
+          markFeatured: "Add to featured",
+          removeFeatured: "Remove from featured",
+          featuredUpdated: "Featured status updated.",
 
           slugRequired: "Slug is required.",
           titleRequired: "Title is required.",
@@ -2136,6 +2154,9 @@ export default function AdminPage() {
 
   const [loadingProjects, setLoadingProjects] =
     useState(true);
+
+  const [featuredUpdatingId, setFeaturedUpdatingId] =
+    useState<number | null>(null);
 
   const [form, setForm] =
     useState<ProjectForm>(emptyForm);
@@ -2283,7 +2304,7 @@ export default function AdminPage() {
 
   function updateField(
     field: keyof ProjectForm,
-    value: string
+    value: string | boolean
   ) {
     setForm((current) => ({
       ...current,
@@ -2380,6 +2401,8 @@ export default function AdminPage() {
               demo:
                 form.demo.trim() ||
                 null,
+
+              featured: form.featured,
             },
           ]);
 
@@ -2449,6 +2472,8 @@ export default function AdminPage() {
             demo:
               form.demo.trim() ||
               null,
+
+            featured: form.featured,
           })
           .eq("id", editingId);
 
@@ -2529,6 +2554,46 @@ export default function AdminPage() {
     );
   }
 
+  async function toggleFeatured(
+    project: Project
+  ) {
+    const featured = !project.featured;
+
+    setFeaturedUpdatingId(project.id);
+
+    const { error } = await supabase
+      .from("projects")
+      .update({ featured })
+      .eq("id", project.id);
+
+    setFeaturedUpdatingId(null);
+
+    if (error) {
+      showToast(error.message, "error");
+      return;
+    }
+
+    setProjects((current) =>
+      current.map((item) =>
+        item.id === project.id
+          ? { ...item, featured }
+          : item
+      )
+    );
+
+    if (editingId === project.id) {
+      setForm((current) => ({
+        ...current,
+        featured,
+      }));
+    }
+
+    showToast(
+      content.featuredUpdated,
+      "success"
+    );
+  }
+
   /* =========================================================
      START EDIT
   ========================================================= */
@@ -2556,6 +2621,8 @@ export default function AdminPage() {
 
       demo:
         project.demo ?? "",
+
+      featured: project.featured,
     });
 
     window.scrollTo({
@@ -3111,7 +3178,8 @@ export default function AdminPage() {
 
             gap-3
 
-            sm:grid-cols-3
+            sm:grid-cols-2
+            lg:grid-cols-4
           "
         >
           <StatCard
@@ -3119,6 +3187,18 @@ export default function AdminPage() {
               content.projects
             }
             value={projects.length}
+          />
+
+          <StatCard
+            label={
+              content.featuredProjects
+            }
+            value={
+              projects.filter(
+                (project) =>
+                  project.featured
+              ).length
+            }
           />
 
           <StatCard
@@ -3418,6 +3498,55 @@ export default function AdminPage() {
                   className={`${inputClassName} h-12`}
                 />
               </Field>
+
+              {/* FEATURED */}
+
+              <button
+                type="button"
+                role="checkbox"
+                aria-checked={form.featured}
+                onClick={() =>
+                  updateField(
+                    "featured",
+                    !form.featured
+                  )
+                }
+                className={`
+                  flex
+                  w-full
+                  items-center
+                  gap-3
+                  rounded-xl
+                  border
+                  px-4
+                  py-3
+                  text-left
+                  transition-all
+                  ${
+                    form.featured
+                      ? "border-red-600/35 bg-red-600/[0.05]"
+                      : "border-white/[0.08] bg-white/[0.018] hover:border-white/[0.14]"
+                  }
+                `}
+              >
+                <Star
+                  size={17}
+                  className={
+                    form.featured
+                      ? "fill-red-500 text-red-500"
+                      : "text-white/30"
+                  }
+                />
+
+                <span className="min-w-0">
+                  <span className="block text-sm text-white/75">
+                    {content.featured}
+                  </span>
+                  <span className="mt-0.5 block text-xs text-white/30">
+                    {content.featuredDescription}
+                  </span>
+                </span>
+              </button>
 
               {/* IMAGE */}
 
@@ -4034,6 +4163,63 @@ export default function AdminPage() {
                             gap-2
                           "
                         >
+                          <button
+                            type="button"
+                            disabled={
+                              featuredUpdatingId ===
+                              project.id
+                            }
+                            onClick={() =>
+                              toggleFeatured(
+                                project
+                              )
+                            }
+                            aria-label={
+                              project.featured
+                                ? `${content.removeFeatured}: ${project.title}`
+                                : `${content.markFeatured}: ${project.title}`
+                            }
+                            title={
+                              project.featured
+                                ? content.removeFeatured
+                                : content.markFeatured
+                            }
+                            className={`
+                              flex
+                              h-9
+                              w-9
+                              items-center
+                              justify-center
+                              rounded-lg
+                              border
+                              transition-all
+                              disabled:cursor-wait
+                              disabled:opacity-50
+                              ${
+                                project.featured
+                                  ? "border-red-600/35 bg-red-600/[0.06] text-red-500"
+                                  : "border-white/[0.08] text-white/35 hover:border-red-600/30 hover:text-red-500"
+                              }
+                            `}
+                          >
+                            {featuredUpdatingId ===
+                            project.id ? (
+                              <LoaderCircle
+                                size={13}
+                                className="animate-spin"
+                              />
+                            ) : (
+                              <Star
+                                size={13}
+                                className={
+                                  project.featured
+                                    ? "fill-current"
+                                    : undefined
+                                }
+                              />
+                            )}
+                          </button>
+
                           <button
                             type="button"
                             onClick={() =>

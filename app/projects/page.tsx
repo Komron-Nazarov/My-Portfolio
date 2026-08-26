@@ -674,14 +674,25 @@ import ProjectsHeader from "../components/ProjectsHeader";
 
 export const dynamic = "force-dynamic";
 
-export default async function Projects() {
+type ProjectsProps = {
+  featuredOnly?: boolean;
+};
+
+export async function Projects({
+  featuredOnly = false,
+}: ProjectsProps) {
+  let query = supabase
+    .from("projects")
+    .select("*");
+
+  if (featuredOnly) {
+    query = query.eq("featured", true);
+  }
+
   const { data: projects, error } =
-    await supabase
-      .from("projects")
-      .select("*")
-      .order("created_at", {
-        ascending: false,
-      });
+    await query.order("created_at", {
+      ascending: false,
+    });
 
   if (error) {
     return (
@@ -857,9 +868,10 @@ export default async function Projects() {
           <div
             className="
               grid
-              gap-6
+              gap-5
 
               md:grid-cols-2
+              lg:grid-cols-3
             "
           >
             {projects.map(
@@ -867,7 +879,7 @@ export default async function Projects() {
                 <ProjectCard
                   key={project.slug}
                   project={project}
-                  priority={index < 2}
+                  priority={index < 3}
                   index={index}
                 />
               )
@@ -877,4 +889,8 @@ export default async function Projects() {
       </div>
     </section>
   );
+}
+
+export default function ProjectsPage() {
+  return <Projects />;
 }

@@ -844,17 +844,40 @@ export default function ProjectCard({
     <motion.article
       initial={{
         opacity: 0,
-        y: 30,
+        x: reduceMotion
+          ? 0
+          : index % 2 === 0
+            ? -72
+            : 72,
+        y: reduceMotion ? 0 : 18,
+        rotateY: reduceMotion
+          ? 0
+          : index % 2 === 0
+            ? 8
+            : -8,
+        filter: reduceMotion
+          ? "blur(0px)"
+          : "blur(10px)",
       }}
       whileInView={{
         opacity: 1,
+        x: 0,
         y: 0,
+        rotateY: 0,
+        filter: "blur(0px)",
       }}
       whileHover={
         reduceMotion
           ? undefined
           : {
               y: -6,
+              rotateX: -2,
+              scale: 1.012,
+              transition: {
+                type: "spring",
+                stiffness: 280,
+                damping: 21,
+              },
             }
       }
       viewport={{
@@ -862,16 +885,21 @@ export default function ProjectCard({
         margin: "-80px",
       }}
       transition={{
-        duration: 0.65,
-        delay: index * 0.04,
+        duration: reduceMotion
+          ? 0.01
+          : 0.72,
+        delay: index * 0.055,
         ease: [0.22, 1, 0.36, 1],
+      }}
+      style={{
+        transformPerspective: 1100,
       }}
       className="
         group
         relative
         overflow-hidden
 
-        rounded-[28px]
+        rounded-[24px]
 
         border
         border-white/[0.08]
@@ -911,7 +939,7 @@ export default function ProjectCard({
       <div
         className="
           relative
-          aspect-[16/10]
+          aspect-[16/9]
           overflow-hidden
         "
       >
@@ -920,7 +948,7 @@ export default function ProjectCard({
           alt={project.title}
           fill
           priority={priority}
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="
             object-cover
 
@@ -949,12 +977,12 @@ export default function ProjectCard({
         <div
           className="
             absolute
-            left-5
-            top-5
+            left-4
+            top-4
 
             flex
-            h-9
-            min-w-9
+            h-8
+            min-w-8
 
             items-center
             justify-center
@@ -966,7 +994,7 @@ export default function ProjectCard({
 
             bg-black/45
 
-            px-3
+            px-2.5
 
             text-[10px]
             font-semibold
@@ -989,12 +1017,12 @@ export default function ProjectCard({
 
       {/* CONTENT */}
 
-      <div className="p-6 md:p-7">
+      <div className="p-5">
         {/* STACK */}
 
         <div
           className="
-            mb-5
+            mb-4
             flex
             flex-wrap
             gap-2
@@ -1012,7 +1040,7 @@ export default function ProjectCard({
                 bg-white/[0.02]
 
                 px-2.5
-                py-1.5
+                py-1
 
                 text-[10px]
                 font-medium
@@ -1035,12 +1063,12 @@ export default function ProjectCard({
 
         <h3
           className="
-            text-2xl
+            text-xl
             font-medium
             tracking-[-0.03em]
             text-white
 
-            md:text-3xl
+            lg:text-2xl
           "
         >
           {project.title}
@@ -1050,15 +1078,15 @@ export default function ProjectCard({
 
         <p
           className="
-            mt-4
+            mt-3
             max-w-xl
 
+            line-clamp-3
+
             text-sm
-            leading-7
+            leading-6
 
             text-white/48
-
-            md:text-base
           "
         >
           {project.description}
@@ -1068,7 +1096,7 @@ export default function ProjectCard({
 
         <div
           className="
-            mt-7
+            mt-5
 
             flex
             flex-wrap
@@ -1078,7 +1106,7 @@ export default function ProjectCard({
             border-t
             border-white/[0.07]
 
-            pt-5
+            pt-4
           "
         >
           <Link

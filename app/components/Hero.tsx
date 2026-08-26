@@ -1611,14 +1611,26 @@ export default function Hero() {
             <motion.div
               initial={{
                 opacity: 0,
-                y: 12,
+                x: reduceMotion ? 0 : -42,
+                y: reduceMotion ? 0 : 10,
+                filter: reduceMotion
+                  ? "blur(0px)"
+                  : "blur(10px)",
               }}
               animate={{
                 opacity: 1,
-                y: 0,
+                x: reduceMotion
+                  ? 0
+                  : [-42, 9, 0],
+                y: reduceMotion
+                  ? 0
+                  : [10, -5, 0],
+                filter: "blur(0px)",
               }}
               transition={{
-                duration: 0.65,
+                duration: reduceMotion
+                  ? 0.01
+                  : 0.95,
                 delay: 0.68,
                 ease: [0.22, 1, 0.36, 1],
               }}
@@ -1679,32 +1691,63 @@ export default function Hero() {
                       key={technology}
                       initial={{
                         opacity: 0,
-                        y: 8,
+                        x: reduceMotion
+                          ? 0
+                          : index % 2 === 0
+                            ? -22
+                            : 22,
+                        y: reduceMotion
+                          ? 0
+                          : 10,
+                        rotate: reduceMotion
+                          ? 0
+                          : index % 2 === 0
+                            ? -4
+                            : 4,
+                        scale: reduceMotion
+                          ? 1
+                          : 0.88,
                       }}
                       animate={{
                         opacity: 1,
+                        x: 0,
                         y: 0,
+                        rotate: 0,
+                        scale: 1,
                       }}
                       transition={{
-                        duration: 0.4,
+                        type: "spring",
+                        stiffness: 180,
+                        damping: 16,
 
                         delay:
-                          0.75 +
-                          index * 0.05,
-
-                        ease: [
-                          0.22,
-                          1,
-                          0.36,
-                          1,
-                        ],
+                          0.82 +
+                          index * 0.065,
                       }}
                       whileHover={
                         reduceMotion
                           ? undefined
                           : {
-                              y: -3,
-                              scale: 1.025,
+                              y: -7,
+                              scale: 1.08,
+                              rotate:
+                                index % 2 === 0
+                                  ? -1.5
+                                  : 1.5,
+                              zIndex: 20,
+                              color:
+                                "rgba(255,255,255,1)",
+                              backgroundColor:
+                                "rgba(220,38,38,0.14)",
+                              borderColor:
+                                "rgba(239,68,68,0.82)",
+                              boxShadow:
+                                "0 14px 35px rgba(220,38,38,0.24), 0 0 0 1px rgba(239,68,68,0.18)",
+                              transition: {
+                                type: "spring",
+                                stiffness: 360,
+                                damping: 19,
+                              },
                             }
                       }
                       className="
@@ -1730,10 +1773,8 @@ export default function Hero() {
                         transition-colors
                         duration-300
 
-                        hover:border-red-600/60
-
-                        hover:bg-white/[0.045]
-
+                        hover:border-red-500/80
+                        hover:bg-red-600/[0.14]
                         hover:text-white
                       "
                     >

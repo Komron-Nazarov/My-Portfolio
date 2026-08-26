@@ -1,5 +1,5 @@
 import Hero from "./components/Hero";
-import Projects from "./projects/page";
+import { Projects } from "./projects/page";
 import About from "./about/page";
 import Contact from "./contact/page";
 
@@ -18,7 +18,7 @@ export default function Home() {
       </section>
 
       <section id="projects">
-        <Projects />
+        <Projects featuredOnly />
       </section>
 
       <section id="contact">

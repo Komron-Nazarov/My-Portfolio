@@ -1172,11 +1172,23 @@ export default function Contact() {
             <motion.div
               initial={{
                 opacity: 0,
-                y: 12,
+                x: reduceMotion ? 0 : -64,
+                rotateY: reduceMotion
+                  ? 0
+                  : 8,
+                clipPath: reduceMotion
+                  ? "inset(0 0 0 0)"
+                  : "inset(0 100% 0 0)",
+                filter: reduceMotion
+                  ? "blur(0px)"
+                  : "blur(9px)",
               }}
               whileInView={{
                 opacity: 1,
-                y: 0,
+                x: 0,
+                rotateY: 0,
+                clipPath: "inset(0 0 0 0)",
+                filter: "blur(0px)",
               }}
               viewport={{
                 once: true,
@@ -1394,8 +1406,14 @@ export default function Contact() {
                 once: true,
               }}
               transition={{
-                duration: 0.6,
+                duration: reduceMotion
+                  ? 0.01
+                  : 0.9,
                 delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                transformPerspective: 1000,
               }}
               className="
                 mt-12

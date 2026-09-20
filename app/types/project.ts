@@ -1,10 +1,20 @@
 export type Project = {
   slug: string;
   title: string;
+  kind: string;
   description: string;
-  stack: string[];
+  ruDescription?: string;
+  tjDescription?: string;
+  longDescription: string;
+  challenge: string;
+  solution: string;
+  contribution?: string;
+  role?: string;
+  year?: string;
   image: string;
+  stack: string[];
   github?: string;
   demo?: string;
+  preview?: "live" | "image";
   featured: boolean;
 };

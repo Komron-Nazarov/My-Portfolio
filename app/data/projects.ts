@@ -1,75 +1,64 @@
-// export const projects = [
-//   {
-//     slug: "mobile-library",
-//     title: "Mobile Library App",
-//     description: "Mobile app for library system of an organization.",
-//     stack: ["Go", "Gin", "Railway"],
-//     image: "/projects/mbl.png",
-//     github: "https://github.com/yourname/project",
-//     demo: "https://your-project.vercel.app",
-//   },
+import type { Project } from "../types/project";
 
-//   {
-//     slug: "sport-market",
-//     title: "Sport Market",
-//     description: "E-commerce platform for sports clothing.",
-//     stack: ["React.js", "Tailwind CSS", "Supabase"],
-//     image: "/projects/spm.png",
-//     github: "https://github.com/yourname/project",
-//     demo: "https://your-project.vercel.app",
-//   },
-
-//   {
-//     slug: "tg-bot",
-//     title: "Telegram Bot",
-//     description: "Personal assistant bot (in development).",
-//     stack: ["Go", "Telegram API"],
-//     image: "/projects/tgb.png",
-//     github: "https://github.com/yourname/project",
-//     demo: "https://your-project.vercel.app",
-//   },
-// ];
-
-
-
-
-
-
-
-
-import { Project } from "../types/project";
-
+// Public facts below are sourced from each repository's README.
 export const projects: Project[] = [
   {
-    slug: "mobile-library",
-    title: "Mobile Library App",
-    description: "Mobile app for library system of an organization.",
-    stack: ["Go", "Gin", "PostgreSQL"],
-    image: "/projects/mbl.png",
-    github: "",
-    demo: "",
-    featured: false,
+    slug: "processcanvas",
+    title: "ProcessCanvas",
+    kind: "B2B SaaS / Workflow",
+    description: "A visual system for designing, validating and running business processes.",
+    ruDescription: "Визуальная система для проектирования, проверки и запуска бизнес-процессов.",
+    tjDescription: "Системаи визуалӣ барои тарҳрезӣ, санҷиш ва иҷрои равандҳои тиҷоратӣ.",
+    longDescription: "A full-stack workflow product with a visual editor, execution simulation, version history and team workspaces.",
+    challenge: "Turn complex operational processes into a structure a team can see, test and improve.",
+    solution: "A node-based editor backed by real persistence, roles, history and an operations centre.",
+    contribution: "Product design and full-stack implementation.",
+    role: "Product / Full-stack",
+    year: "2026",
+    image: "/projects/processcanvas.svg",
+    stack: ["Next.js", "React Flow", "Zustand", "Go", "PostgreSQL"],
+    github: "https://github.com/Komron-Nazarov/ProcessCanvas",
+    demo: "https://processcanvas.vercel.app/",
+    preview: "live",
+    featured: true,
   },
-
   {
-    slug: "sport-market",
-    title: "Sport Market",
-    description: "E-commerce platform for sports clothing.",
-    stack: ["React", "Tailwind", "Supabase"],
-    image: "/projects/spm.png",
-    github: "",
-    demo: "",
-    featured: false,
+    slug: "discipline-os",
+    title: "Discipline OS",
+    kind: "Local-first / Productivity",
+    description: "A local-first personal operating system for tasks, habits and finances.",
+    ruDescription: "Локальная персональная система для задач, привычек и финансов.",
+    tjDescription: "Системаи шахсии local-first барои вазифаҳо, одатҳо ва молия.",
+    longDescription: "A personal operating system that keeps tasks, habits and finance in one focused environment.",
+    challenge: "Personal tracking is usually fragmented across unrelated tools.",
+    solution: "One local-first workspace for the systems that shape everyday progress.",
+    contribution: "Product design and full-stack implementation.",
+    role: "Product / Full-stack",
+    year: "2026",
+    image: "/projects/discipline-os.svg",
+    stack: ["Next.js", "TypeScript", "Local-first"],
+    github: "https://github.com/Komron-Nazarov/Discipline-OS",
+    demo: "https://discipline-os-kn.vercel.app/",
+    preview: "live",
+    featured: true,
   },
-
   {
-    slug: "tg-bot",
-    title: "Telegram Bot",
-    description: "Personal assistant bot (in development).",
-    stack: ["Go", "Telegram API"],
+    slug: "tg-cargo-bot",
+    title: "Cargo Bot",
+    kind: "Logistics / Telegram",
+    description: "A Telegram system for cargo registration, tracking, consolidation and delivery.",
+    ruDescription: "Telegram-система для регистрации, отслеживания, консолидации и выдачи грузов.",
+    tjDescription: "Системаи Telegram барои бақайдгирӣ, пайгирӣ, муттаҳидсозӣ ва таҳвили бор.",
+    longDescription: "A logistics bot covering the cargo lifecycle from client registration and warehouse intake to delivery and payment.",
+    challenge: "Cargo status and operations have to stay consistent across many hand-offs.",
+    solution: "A transactional PostgreSQL workflow with private client boundaries and operational status control.",
+    contribution: "Backend architecture and bot implementation.",
+    role: "Backend",
+    year: "2026",
     image: "/projects/tgb.png",
-    github: "",
-    demo: "",
-    featured: false,
+    stack: ["Python", "aiogram", "PostgreSQL", "Docker"],
+    github: "https://github.com/Komron-Nazarov/Tg-Cargo-Bot",
+    preview: "image",
+    featured: true,
   },
 ];

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">ProcessCanvas system map</title><desc id="desc">A schematic workflow with connected process nodes.</desc>
+  <rect width="1200" height="750" fill="#0b0b0c"/><path d="M0 70h1200M0 140h1200M0 210h1200M0 280h1200M0 350h1200M0 420h1200M0 490h1200M0 560h1200M0 630h1200M100 0v750M200 0v750M300 0v750M400 0v750M500 0v750M600 0v750M700 0v750M800 0v750M900 0v750M1000 0v750M1100 0v750" stroke="#202024"/>
+  <g fill="none" stroke="#e01b27" stroke-width="3"><path d="M175 365h150l68-126h144l81 258h144l81-132h182"/><circle cx="175" cy="365" r="11"/><circle cx="393" cy="239" r="11"/><circle cx="618" cy="497" r="11"/><circle cx="843" cy="365" r="11"/><circle cx="1025" cy="365" r="11"/></g>
+  <g fill="#f6f6f3" font-family="Arial, sans-serif" font-weight="700"><text x="70" y="86" font-size="28">PROCESSCANVAS</text><text x="70" y="116" font-size="12" fill="#85858a">VISUAL BUSINESS PROCESS SYSTEM</text></g>
+  <g fill="#99999d" font-family="monospace" font-size="13"><text x="142" y="405">INPUT</text><text x="349" y="216">VALIDATE</text><text x="571" y="537">EXECUTE</text><text x="802" y="342">REVIEW</text><text x="986" y="405">OUTPUT</text></g>
+</svg>

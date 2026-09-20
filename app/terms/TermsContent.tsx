@@ -7,11 +7,24 @@ export default function TermsContent() {
   const { lang } = useLang();
 
   const content =
-    lang === "ru"
+    lang === "tj"
+      ? {
+          eyebrow: "МАЪЛУМОТИ ҲУҚУҚӢ", title: "Шартҳои истифода", updated: "Навсозии охирин: сентябри 2026",
+          intro: "Бо истифодаи ин сайт шумо ба шартҳои дар поён овардашуда розӣ мешавед.",
+          sections: [
+            { title: "Мақсади сайт", text: "Ин сайт портфолиои касбӣ барои нишон додани лоиҳаҳо ва малакаҳо мебошад." },
+            { title: "Муҳтаво", text: "Матн, маводи визуалӣ ва дизайн бе иҷозат барои мақсадҳои тиҷоратӣ истифода шуда наметавонанд." },
+            { title: "Лоиҳаҳо ва demo", text: "Баъзе лоиҳаҳо метавонанд таҷрибавӣ ё дар ҳоли таҳия бошанд. Версияҳои demo метавонанд тағйир ёбанд." },
+            { title: "Пайвандҳои беруна", text: "Сайт метавонад ба GitHub, demo ва хидматҳои дигар пайванд дошта бошад. Барои кори онҳо масъулият надорам." },
+            { title: "Бе кафолат", text: "Маълумоти сайт барои шиносоӣ дода мешавад ва метавонад бе огоҳӣ нав шавад." },
+            { title: "Тамос", text: "Барои масъалаҳои истифодаи мавод ба komron7nazarov@gmail.com нависед." },
+          ],
+        }
+      : lang === "ru"
       ? {
           eyebrow: "ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ",
           title: "Условия использования",
-          updated: "Последнее обновление: август 2026",
+          updated: "Последнее обновление: сентябрь 2026",
           intro:
             "Используя этот сайт, вы соглашаетесь с условиями, описанными ниже.",
           sections: [
@@ -43,14 +56,14 @@ export default function TermsContent() {
             {
               title: "Контакты",
               text:
-                "По вопросам использования материалов сайта можно написать на komron7nazarov@gmail.com.",
+                "По вопросам использования материалов сайта пишите на komron7nazarov@gmail.com.",
             },
           ],
         }
       : {
           eyebrow: "LEGAL",
           title: "Terms of Use",
-          updated: "Last updated: August 2026",
+          updated: "Last updated: September 2026",
           intro:
             "By using this website, you agree to the terms described below.",
           sections: [
@@ -82,7 +95,7 @@ export default function TermsContent() {
             {
               title: "Contact",
               text:
-                "For questions regarding use of website materials, contact komron7nazarov@gmail.com.",
+                "For questions regarding use of website materials, email komron7nazarov@gmail.com.",
             },
           ],
         };

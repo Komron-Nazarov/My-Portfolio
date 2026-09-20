@@ -144,7 +144,7 @@ export const translations = {
       namePlaceholder: "Your name",
 
       email: "Email",
-      emailPlaceholder: "you@example.com",
+      emailPlaceholder: "name@domain.com",
 
       message: "Message",
 
@@ -213,7 +213,7 @@ export const translations = {
         "Sign in to manage portfolio content.",
 
       email: "Email",
-      emailPlaceholder: "admin@example.com",
+      emailPlaceholder: "admin email",
 
       password: "Password",
       passwordPlaceholder: "••••••••",
@@ -432,7 +432,7 @@ export const translations = {
       namePlaceholder: "Ваше имя",
 
       email: "Email",
-      emailPlaceholder: "you@example.com",
+      emailPlaceholder: "name@domain.com",
 
       message: "Сообщение",
 
@@ -510,7 +510,7 @@ export const translations = {
 
       email: "Email",
       emailPlaceholder:
-        "admin@example.com",
+        "admin email",
 
       password: "Пароль",
       passwordPlaceholder:

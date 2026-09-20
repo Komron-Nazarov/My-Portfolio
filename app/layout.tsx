@@ -1,294 +1,68 @@
-// // // import Navbar from "./components/Navbar";
-// // // import "./globals.css";
-
-// // // export default function RootLayout({
-// // //   children,
-// // // }: {
-// // //   children: React.ReactNode;
-// // // }) {
-// // //   return (
-// // //     <html lang="en">
-// // //       <body className="bg-black text-white">
-        
-// // //         <Navbar />
-
-// // //         {children}
-
-// // //       </body>
-// // //     </html>
-// // //   );
-// // // }
-
-// // import "./globals.css";
-// // import AnimatedBackground from "./components/AnimatedBackground";
-// // import Navbar from "./components/Navbar";
-// // import { Toaster } from "sonner"
-
-// // export default function RootLayout({
-// //   children,
-// // }: {
-// //   children: React.ReactNode;
-// // }) {
-// //   return (
-// //     <html lang="en">
-// //       <body className="bg-black text-white overflow-x-hidden">
-
-// //         {/* BACKGROUND (самый нижний слой) */}
-// //         <AnimatedBackground />
-
-// //         {/* NAVBAR (поверх всего, фиксированный) */}
-// //         <Navbar />
-
-// //         {/* PAGE CONTENT */}
-// //         <div className="relative z-10 pt-20">
-// //           {children}
-// //         </div>
-
-// //          <Toaster
-// //           position="top-right"
-// //           richColors
-// //         />
-
-// //       </body>
-// //     </html>
-// //   );
-// // }
-
-
-
-
-// import type { Metadata, Viewport } from "next";
-// import "./globals.css";
-
-// import AnimatedBackground from "./components/AnimatedBackground";
-// import Navbar from "./components/Navbar";
-// import { Toaster } from "sonner";
-// import Footer from "./components/Footer";
-
-// export const metadata: Metadata = {
-//   title: {
-//     default: "Komron Nazarov — Software Developer",
-//     template: "%s — Komron Nazarov",
-//   },
-
-//   description:
-//     "Komron Nazarov — Software Developer building web applications, backend systems, Telegram bots and mobile experiences.",
-
-//   keywords: [
-//     "Komron Nazarov",
-//     "Software Developer",
-//     "Full-Stack Developer",
-//     "Web Developer",
-//     "Go Developer",
-//     "Next.js Developer",
-//     "React Developer",
-//     "Telegram Bot Developer",
-//     "Swift Developer",
-//   ],
-
-//   authors: [
-//     {
-//       name: "Komron Nazarov",
-//     },
-//   ],
-
-//   creator: "Komron Nazarov",
-
-//   metadataBase: new URL("https://kn-portfolio-one.vercel.app"),
-
-//   openGraph: {
-//     type: "website",
-//     locale: "en_US",
-//     title: "Komron Nazarov — Software Developer",
-//     description:
-//       "Software Developer building web applications, backend systems, Telegram bots and mobile experiences.",
-//     url: "https://kn-portfolio-one.vercel.app",
-//     siteName: "Komron Nazarov",
-//   },
-
-//   robots: {
-//     index: true,
-//     follow: true,
-//   },
-// };
-
-// export const viewport: Viewport = {
-//   width: "device-width",
-//   initialScale: 1,
-//   themeColor: "#070707",
-// };
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <html lang="en">
-//       <body className="overflow-x-hidden">
-//         <AnimatedBackground />
-
-//         <Navbar />
-
-//         <main className="relative z-10 pt-20">
-//           {children}
-//         </main>
-
-//         <Footer />
-        
-//         <Toaster position="top-right" richColors />
-//       </body>
-//     </html>
-//   );
-// }
-
-
-
-
-
-
-import type {
-  Metadata,
-  Viewport,
-} from "next";
-
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
-
-import AnimatedBackground from "./components/AnimatedBackground";
+import "./public-experience.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
 import { Toaster } from "sonner";
 
-const siteUrl =
-  "https://kn-portfolio-one.vercel.app";
+const siteUrl = "https://kn-portfolio-one.vercel.app";
+const geologica = localFont({ src: "../public/Geologica-variable.ttf", weight: "100 900", variable: "--font-geologica", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-
-  title: {
-    default:
-      "Komron Nazarov — Software Developer",
-    template:
-      "%s — Komron Nazarov",
-  },
-
-  description:
-    "Software Developer building web applications, backend systems, Telegram bots and mobile experiences.",
-
-  applicationName:
-    "Komron Nazarov Portfolio",
-
-  authors: [
-    {
-      name: "Komron Nazarov",
-    },
-  ],
-
+  title: { default: "Komron Nazarov — Software & Product Engineer", template: "%s — Komron Nazarov" },
+  description: "Software and product engineer building full-stack systems, native iOS applications, backend services and business automation.",
+  applicationName: "Komron Nazarov Portfolio",
+  authors: [{ name: "Komron Nazarov", url: siteUrl }],
   creator: "Komron Nazarov",
   publisher: "Komron Nazarov",
-
-  keywords: [
-    "Komron Nazarov",
-    "Software Developer",
-    "Full Stack Developer",
-    "Web Developer",
-    "Backend Developer",
-    "Go Developer",
-    "Next.js Developer",
-    "React Developer",
-    "Telegram Bot Developer",
-    "Swift Developer",
-    "Portfolio",
-  ],
-
-  alternates: {
-    canonical: "/",
-  },
-
+  other: { "contact:email": "komron7nazarov@gmail.com" },
+  keywords: ["Komron Nazarov", "Software Engineer", "Full Stack Developer", "iOS Developer", "Swift Developer", "SwiftUI", "UIKit", "Go Developer", "Next.js Developer", "Product Engineer", "Telegram Bot Developer"],
+  icons: { icon: "/icon.jpg", apple: "/icon.jpg" },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-
     url: siteUrl,
-
     siteName: "Komron Nazarov",
-
-    title:
-      "Komron Nazarov — Software Developer",
-
-    description:
-      "Software Developer building web applications, backend systems, Telegram bots and mobile experiences.",
-
+    title: "Komron Nazarov — Software & Product Engineer",
+    description: "Full-stack systems, native iOS, backend and delivery — engineered as one product.",
     locale: "en_US",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Komron Nazarov — Software & Product Engineer" }],
   },
-
   twitter: {
     card: "summary_large_image",
-
-    title:
-      "Komron Nazarov — Software Developer",
-
-    description:
-      "Software Developer building web applications, backend systems, Telegram bots and mobile experiences.",
+    title: "Komron Nazarov — Software & Product Engineer",
+    description: "Full-stack systems, native iOS, backend and delivery — engineered as one product.",
+    images: ["/og.png"],
   },
-
-  robots: {
-    index: true,
-    follow: true,
-
-    googleBot: {
-      index: true,
-      follow: true,
-
-      "max-image-preview":
-        "large",
-
-      "max-snippet": -1,
-
-      "max-video-preview": -1,
-    },
-  },
-
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   category: "technology",
 };
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#050505", colorScheme: "dark" };
 
-  themeColor: "#050505",
-
-  colorScheme: "dark",
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Komron Nazarov",
+  url: siteUrl,
+  jobTitle: "Software and Product Engineer",
+  email: "mailto:komron7nazarov@gmail.com",
+  sameAs: ["https://github.com/Komron-Nazarov", "https://www.instagram.com/komron.n7/", "https://t.me/KNazarov_7", "https://t.me/KN7_Life", "https://www.linkedin.com/in/komron-nazarov-0aa193361/"],
+  knowsAbout: ["Next.js", "React", "TypeScript", "Swift", "SwiftUI", "UIKit", "Go", "Python", "PostgreSQL", "Product engineering", "Telegram bots"],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className="
-          overflow-x-hidden
-          bg-[#050505]
-          text-white
-        "
-      >
-        <AnimatedBackground />
-
+      <body className={geologica.variable}>
+        <a href="#main-content" className="fixed left-4 top-4 z-[200] -translate-y-24 bg-white px-4 py-3 text-sm font-bold text-black focus:translate-y-0">Skip to content</a>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <Navbar />
-
-        <main className="relative z-10 pt-20">
-          {children}
-        </main>
-
+        <main id="main-content">{children}</main>
         <Footer />
-
-        <Toaster
-          position="top-right"
-          richColors
-        />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

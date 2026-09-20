@@ -7,11 +7,25 @@ export default function PrivacyContent() {
   const { lang } = useLang();
 
   const content =
-    lang === "ru"
+    lang === "tj"
+      ? {
+          eyebrow: "МАЪЛУМОТИ ҲУҚУҚӢ", title: "Сиёсати махфият", updated: "Навсозии охирин: сентябри 2026",
+          intro: "Ин сиёсат мефаҳмонад, ки ҳангоми истифодаи сайт кадом маълумот коркард шуда метавонад ва чӣ гуна истифода мешавад.",
+          sections: [
+            { title: "Маълумоти ҷамъшаванда", text: "Ҳангоми истифодаи шакли тамос ном, email ва матни паёми шумо коркард шуда метавонад." },
+            { title: "Тарзи истифода", text: "Маълумот танҳо барои ҷавоб ба паём ва муҳокимаи лоиҳа истифода мешавад." },
+            { title: "Хидматҳои техникӣ", text: "Маълумот метавонад аз ҷониби хидматҳое коркард шавад, ки барои кори сайт ва расонидани паём заруранд." },
+            { title: "Муҳлати нигоҳдорӣ", text: "Маълумот танҳо то замоне нигоҳ дошта мешавад, ки барои коркарди дархост зарур аст." },
+            { title: "Cookies ва таҳлил", text: "Сайт cookies-и рекламавӣ ё маркетингиро истифода намекунад, агар ин алоҳида нишон дода нашуда бошад." },
+            { title: "Ҳуқуқҳои шумо", text: "Шумо метавонед тавассути шакли тамоси сайт ҳазф ё дақиқ кардани маълумоти худро дархост кунед." },
+            { title: "Тамос", text: "Барои масъалаҳои махфият ба komron7nazarov@gmail.com нависед." },
+          ],
+        }
+      : lang === "ru"
       ? {
           eyebrow: "ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ",
           title: "Политика конфиденциальности",
-          updated: "Последнее обновление: август 2026",
+          updated: "Последнее обновление: сентябрь 2026",
           intro:
             "Эта политика объясняет, какие данные могут обрабатываться при использовании этого сайта и как они используются.",
           sections: [
@@ -48,14 +62,14 @@ export default function PrivacyContent() {
             {
               title: "Контакты",
               text:
-                "По вопросам конфиденциальности можно написать на komron7nazarov@gmail.com.",
+                "По вопросам конфиденциальности пишите на komron7nazarov@gmail.com.",
             },
           ],
         }
       : {
           eyebrow: "LEGAL",
           title: "Privacy Policy",
-          updated: "Last updated: August 2026",
+          updated: "Last updated: September 2026",
           intro:
             "This policy explains what information may be processed when you use this website and how that information is used.",
           sections: [
@@ -92,7 +106,7 @@ export default function PrivacyContent() {
             {
               title: "Contact",
               text:
-                "For privacy-related questions, contact komron7nazarov@gmail.com.",
+                "For privacy-related questions, email komron7nazarov@gmail.com.",
             },
           ],
         };

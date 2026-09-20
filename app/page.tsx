@@ -1,30 +1,9 @@
-import Hero from "./components/Hero";
-import { Projects } from "./projects/page";
-import About from "./about/page";
-import Contact from "./contact/page";
+import PortfolioExperience from "./components/PortfolioExperience";
+import { getProjects } from "@/lib/project-data";
 
 export const dynamic = "force-dynamic";
 
-export default function Home() {
-  return (
-    <main>
-
-      <section id="home">
-        <Hero />
-      </section>
-
-      <section id="about">
-        <About />
-      </section>
-
-      <section id="projects">
-        <Projects featuredOnly />
-      </section>
-
-      <section id="contact">
-        <Contact />
-      </section>
-
-    </main>
-  );
+export default async function Home() {
+  const projects = await getProjects(true);
+  return <PortfolioExperience projectItems={projects} />;
 }

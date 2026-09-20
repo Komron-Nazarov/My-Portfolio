@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#0c0c0d"/>
+  <circle cx="600" cy="355" r="220" fill="#1e1e21" stroke="#e01b27" stroke-width="2"/>
+  <circle cx="600" cy="355" r="118" fill="#050506"/>
+  <g font-family="Arial" font-weight="700"><text x="80" y="92" fill="#f6f6f3" font-size="30">CAREER AI</text><text x="80" y="120" fill="#e01b27" font-size="13">ACTIVE PROTOTYPE</text></g>
+  <g fill="#131315" stroke="#303034"><rect x="70" y="258" width="250" height="194" rx="12"/><rect x="340" y="258" width="250" height="194" rx="12"/><rect x="610" y="258" width="250" height="194" rx="12"/><rect x="880" y="258" width="250" height="194" rx="12"/></g>
+  <g font-family="Arial"><g fill="#e01b27" font-size="12" font-weight="700"><text x="96" y="292">01 / INPUT</text><text x="366" y="292">02 / ANALYZE</text><text x="636" y="292">03 / OUTPUT</text><text x="906" y="292">04 / TRAIN</text></g><g fill="#f6f6f3" font-size="22" font-weight="700"><text x="96" y="352">HOBBIES /</text><text x="96" y="380">SKILLS / INTERESTS</text><text x="366" y="352">AI REASONING</text><text x="366" y="380">LAYER</text><text x="636" y="352">DIRECTIONS /</text><text x="636" y="380">ROADMAP</text><text x="906" y="352">INTERVIEW</text><text x="906" y="380">PRACTICE</text></g></g>
+</svg>

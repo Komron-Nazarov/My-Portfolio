@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#0c0c0d"/>
+  <rect x="110" y="88" width="980" height="544" rx="12" fill="#131315" stroke="#303034"/>
+  <rect x="110" y="88" width="210" height="544" rx="12" fill="#09090a" stroke="#303034"/>
+  <text x="148" y="142" fill="#f6f6f3" font-family="Arial" font-size="24" font-weight="700">DISCIPLINE</text>
+  <circle cx="162" cy="202" r="6" fill="#e01b27"/><rect x="184" y="195" width="76" height="12" rx="6" fill="#949498"/>
+  <rect x="148" y="252" width="112" height="10" rx="5" fill="#303034"/><rect x="148" y="292" width="92" height="10" rx="5" fill="#303034"/><rect x="148" y="332" width="118" height="10" rx="5" fill="#303034"/>
+  <text x="370" y="154" fill="#f6f6f3" font-family="Arial" font-size="34" font-weight="700">TODAY</text>
+  <text x="370" y="188" fill="#949498" font-family="Arial" font-size="15">MONDAY / FOCUSED WORK</text>
+  <rect x="370" y="232" width="310" height="150" rx="10" fill="#0c0c0d" stroke="#303034"/>
+  <rect x="714" y="232" width="304" height="150" rx="10" fill="#0c0c0d" stroke="#303034"/>
+  <text x="400" y="274" fill="#949498" font-family="Arial" font-size="13" font-weight="700">TASKS</text><text x="400" y="344" fill="#f6f6f3" font-family="Arial" font-size="58" font-weight="700">08</text>
+  <text x="744" y="274" fill="#949498" font-family="Arial" font-size="13" font-weight="700">HABITS</text><text x="744" y="344" fill="#f6f6f3" font-family="Arial" font-size="58" font-weight="700">06</text>
+  <rect x="370" y="416" width="648" height="152" rx="10" fill="#0c0c0d" stroke="#303034"/>
+  <path d="M410 526 C500 486 550 520 625 472 S780 520 866 450 950 480 980 438" fill="none" stroke="#e01b27" stroke-width="4"/>
+</svg>

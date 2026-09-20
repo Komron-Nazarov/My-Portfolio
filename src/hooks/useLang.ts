@@ -1,39 +1,15 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import { translations } from "@/src/i18n/translations";
-
-// export type Lang = "en" | "ru";
-
-// export function useLang() {
-//   const [lang, setLang] = useState<Lang>("en");
-
-//   useEffect(() => {
-//     const saved = localStorage.getItem("lang") as Lang | null;
-//     if (saved) setLang(saved);
-//   }, []);
-
-//   const changeLang = (l: Lang) => {
-//     setLang(l);
-//     localStorage.setItem("lang", l);
-//   };
-
-//   const t = translations[lang];
-
-//   return { lang, changeLang, t };
-// }
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { translations } from "@/src/i18n/translations";
 
-export type Lang = "en" | "ru";
+export type Lang = "en" | "ru" | "tj";
 
 const STORAGE_KEY = "lang";
 const LANGUAGE_EVENT = "portfolio-language-change";
 
 function isLang(value: string | null): value is Lang {
-  return value === "en" || value === "ru";
+  return value === "en" || value === "ru" || value === "tj";
 }
 
 function getSnapshot(): Lang {
@@ -74,12 +50,16 @@ export function useLang() {
   const changeLang = (nextLang: Lang) => {
     localStorage.setItem(STORAGE_KEY, nextLang);
 
-    document.documentElement.lang = nextLang;
+    document.documentElement.lang = nextLang === "tj" ? "tg" : nextLang;
 
     window.dispatchEvent(new Event(LANGUAGE_EVENT));
   };
 
-  const t = translations[lang];
+  useEffect(() => {
+    document.documentElement.lang = lang === "tj" ? "tg" : lang;
+  }, [lang]);
+
+  const t = translations[lang === "tj" ? "ru" : lang];
 
   return {
     lang,

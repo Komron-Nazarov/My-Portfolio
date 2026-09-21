@@ -89,7 +89,7 @@ export default function CapabilityGraph({lang}:{lang:Lang}) {
           });
         }
       }
-      if (!reduce && window.innerWidth > 700) frame = requestAnimationFrame(update);
+      if (!reduce) frame = requestAnimationFrame(update);
     };
     const onResize = () => update(performance.now());
     update();

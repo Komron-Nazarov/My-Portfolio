@@ -344,3 +344,67 @@
 @media(max-width:700px){.position-sculpture{height:430px}.sculpture-scene{width:430px}.sculpture-scene>i{width:170px}.sculpture-core{width:84px}.sculpture-core span{font-size:16px}.position-sculpture>small{display:none}.position-sculpture>b{bottom:22px}.footer-compact{grid-template-columns:1fr;gap:30px;padding-block:38px}.footer-mail{min-width:0}.footer-mail strong{font-size:13px;overflow-wrap:anywhere}.footer-compact nav{grid-column:auto;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.sculpture-scene>i,.sculpture-orbit,.sculpture-core{animation:none!important}}
 .footer-sign>span{overflow:hidden;color:transparent;font-size:0}.footer-sign>span img{width:100%;height:100%;object-fit:cover;border-radius:50%;filter:grayscale(1) contrast(1.08)}
+
+/* V9: mobile is a first-class interactive layout, not a flattened desktop fallback. */
+@media(max-width:700px){
+  .hero-next-copy{z-index:3;width:100%;min-width:0}
+  .hero-line{width:auto;max-width:none;white-space:nowrap;opacity:1}
+  .hero-next h1{overflow:visible;letter-spacing:-.028em}
+  .hero-proofline>div,.hero-proofline>div:first-child{grid-template-columns:minmax(96px,.55fr) minmax(0,1fr)}
+  .hero-proofline strong{overflow-wrap:anywhere}
+
+  .capability-system{display:block}
+  .capability-graph{min-height:680px;overflow:hidden}
+  .capability-links{display:block;inset:0;width:100%;height:100%}
+  .capability-node{width:94px;min-height:62px;padding:9px 8px;touch-action:manipulation}
+  .capability-node small{display:none}
+  .capability-node strong{margin-top:10px;font-size:10px;line-height:1.05}
+  .capability-node>span{right:8px;top:7px}
+  .capability-node:active{border-color:var(--red);background:#17090b;box-shadow:0 0 0 5px rgba(224,27,39,.1)}
+  .capability-core{width:142px}
+  .capability-core>strong{font-size:25px}
+  .capability-hint{bottom:18px;max-width:255px}
+  .capability-readout{min-height:520px}
+
+  .position-sculpture{touch-action:pan-y;cursor:grab}
+  .position-sculpture:active{cursor:grabbing}
+  .position-sculpture:not(:active) .sculpture-scene{animation:mobile-scene-drift 7s ease-in-out infinite alternate}
+  .position-sculpture:active .sculpture-core{box-shadow:0 0 0 18px rgba(224,27,39,.08),0 0 90px rgba(224,27,39,.42)}
+  .position-principles article:active::before{transform:scaleX(1)}
+  .evidence-grid article:active{border-color:var(--red);transform:translateY(-4px)}
+  .evidence-trace i{animation:evidence-mobile-trace 2.8s ease-in-out infinite alternate}
+  .evidence-grid article:nth-child(2n) .evidence-trace i{animation-delay:-1.4s}
+  .evidence-grid article:active .evidence-trace i:nth-child(odd){height:38px;background:var(--red)}
+  .evidence-grid article:active .evidence-trace i:nth-child(even){height:17px}
+}
+
+@media(max-width:700px) and (min-width:421px){
+  @supports(offset-path:ellipse(36% 37% at 50% 50%)){
+    .capability-node,.capability-node.node-fullstack,.capability-node.node-backend,.capability-node.node-data,.capability-node.node-ios,.capability-node.node-product,.capability-node.node-management,.capability-node.node-fintech,.capability-node.node-automation,.capability-node.node-delivery{left:0!important;top:0!important;offset-path:ellipse(38% 38% at 50% 50%);offset-anchor:center;offset-rotate:0deg;animation-name:capability-orbit;animation-duration:34s;animation-timing-function:linear;animation-iteration-count:infinite;transform:none}
+    .capability-node:hover,.capability-node.linked,.capability-node.active{transform:scale(1.035)}
+  }
+}
+
+@media(max-width:420px){
+  .hero-next-copy{padding-top:26px}
+  .hero-next h1{font-size:clamp(45px,13vw,54px)}
+  .capability-graph{min-height:640px}
+  .capability-node{width:84px;min-height:58px;padding:8px 7px}
+  .capability-node strong{font-size:9px}
+  .capability-core{width:126px}
+  .capability-core>strong{font-size:22px}
+  @supports(offset-path:ellipse(36% 37% at 50% 50%)){
+    .capability-node,.capability-node.node-fullstack,.capability-node.node-backend,.capability-node.node-data,.capability-node.node-ios,.capability-node.node-product,.capability-node.node-management,.capability-node.node-fintech,.capability-node.node-automation,.capability-node.node-delivery{left:0!important;top:0!important;offset-path:ellipse(37% 38% at 50% 50%);offset-anchor:center;offset-rotate:0deg;animation-name:capability-orbit;animation-duration:36s;animation-timing-function:linear;animation-iteration-count:infinite;transform:none}
+    .capability-node:hover,.capability-node.linked,.capability-node.active{transform:scale(1.035)}
+  }
+}
+
+@media(pointer:coarse) and (prefers-reduced-motion:no-preference){
+  .position-sculpture:not(:active) .sculpture-scene{animation:mobile-scene-drift 7s ease-in-out infinite alternate}
+  .evidence-trace i{animation:evidence-mobile-trace 2.8s ease-in-out infinite alternate}
+  .evidence-grid article:nth-child(2n) .evidence-trace i{animation-delay:-1.4s}
+}
+@keyframes mobile-scene-drift{0%{transform:translate(-50%,-50%) rotateX(-4deg) rotateY(-7deg)}100%{transform:translate(-50%,-52%) rotateX(6deg) rotateY(8deg)}}
+@keyframes evidence-mobile-trace{0%{filter:brightness(.7);transform:scaleY(.55)}100%{filter:brightness(1.25);transform:scaleY(1)}}
+
+@media(prefers-reduced-motion:reduce){.evidence-trace i,.sculpture-scene{animation:none!important}}

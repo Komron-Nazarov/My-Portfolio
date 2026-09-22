@@ -408,3 +408,56 @@
 @keyframes evidence-mobile-trace{0%{filter:brightness(.7);transform:scaleY(.55)}100%{filter:brightness(1.25);transform:scaleY(1)}}
 
 @media(prefers-reduced-motion:reduce){.evidence-trace i,.sculpture-scene{animation:none!important}}
+
+/* V10: the 3D model explains the work and can be rotated with mouse, touch or keyboard. */
+.position-sculpture{user-select:none;touch-action:pan-y;outline:none}
+.position-sculpture:focus-visible{box-shadow:inset 0 0 0 2px var(--red)}
+.position-sculpture.is-dragging{cursor:grabbing}
+.position-sculpture.is-dragging .sculpture-scene{transition:none}
+.position-sculpture.is-dragging .sculpture-core{box-shadow:0 0 0 16px rgba(224,27,39,.07),0 0 95px rgba(224,27,39,.42)}
+.position-sculpture>b{max-width:34ch;font-size:clamp(17px,1.8vw,27px);letter-spacing:-.025em}
+.sculpture-meaning{position:absolute;z-index:5;left:50%;bottom:27px;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:clamp(18px,3vw,48px);width:min(62vw,790px)}
+.sculpture-meaning span{display:flex;align-items:center;gap:9px;color:#77777d;font:700 7px var(--font-geologica),sans-serif;letter-spacing:.11em;white-space:nowrap}
+.sculpture-meaning span i{position:static;width:auto;aspect-ratio:auto;border:0;background:none;color:var(--red);font-style:normal;animation:none;transform:none}
+
+/* Mobile career path is content-sized: long translations can no longer break fixed coordinates. */
+@media(max-width:700px){
+  .career-map{margin-inline:calc(var(--page) * -1)}
+  .career-graph{display:grid;gap:14px;min-height:0;margin:0;padding:70px var(--page) 38px calc(var(--page) + 52px);overflow:visible}
+  .career-graph::before{left:var(--page);top:24px}
+  .career-graph::after{left:calc(var(--page) + 23px);top:72px;bottom:44px;background:linear-gradient(var(--red) 0 34%,#3b3b40 34% 100%)}
+  .career-node,.career-node.node-1,.career-node.node-2,.career-node.node-3,.career-node.node-4{position:relative;left:auto;right:auto;top:auto;width:100%;min-height:0;padding:19px 42px 20px 18px;transform:none}
+  .career-node.node-1::before,.career-node.node-2::before,.career-node.node-3::before,.career-node.node-4::before{left:-37px;top:22px;bottom:auto}
+  .career-node:hover,.career-node.active{transform:translateX(5px)}
+  .career-node strong{font-size:clamp(15px,4.5vw,19px);line-height:1.16;overflow-wrap:anywhere}
+  .career-detail{grid-template-columns:1fr;min-height:0}
+  .career-mark{min-height:188px;border-right:0;border-bottom:1px solid var(--line)}
+  .career-mark .logo-assembly{width:126px}
+  .career-mark .logo-assembly,.career-mark .logo-assembly.step-0,.career-mark .logo-assembly.step-1,.career-mark .logo-assembly.step-2{clip-path:none;opacity:1}
+  .career-mark .logo-assembly img{opacity:.13;filter:grayscale(1) contrast(1.2)}
+  .career-mark .logo-assembly::after{display:block;content:"";position:absolute;inset:0;background:url('/logo-kn.jpg') center/cover no-repeat;filter:grayscale(1) contrast(1.12);transition:clip-path .7s cubic-bezier(.16,1,.3,1)}
+  .career-mark .logo-assembly.step-0::after{clip-path:inset(66% 0 0)}
+  .career-mark .logo-assembly.step-1::after{clip-path:inset(33% 0 0)}
+  .career-mark .logo-assembly.step-2::after{clip-path:inset(0)}
+  .career-mark em{left:var(--page);top:18px}
+  .career-mark>span{left:var(--page);bottom:15px}
+  .career-segments{left:var(--page);right:var(--page);bottom:34px}
+  .career-detail>div:last-child{padding:34px var(--page) 42px}
+  .career-detail h3{font-size:clamp(30px,9.2vw,43px);overflow-wrap:anywhere}
+  .career-detail b{line-height:1.5}
+  .position-sculpture{height:470px}
+  .position-sculpture:not(.has-rotated) .sculpture-scene{animation:mobile-scene-drift 7s ease-in-out infinite alternate}
+  .position-sculpture>b{left:var(--page);right:var(--page);bottom:92px;max-width:18ch;font-size:16px;line-height:1.15}
+  .position-sculpture>small{display:block;left:var(--page);right:auto;bottom:20px;max-width:29ch;line-height:1.55}
+  .sculpture-meaning{left:auto;right:var(--page);bottom:91px;transform:none;width:auto;display:grid;gap:8px;justify-items:end}
+  .sculpture-meaning span{font-size:6px}
+}
+
+@media(max-width:420px){
+  .position-sculpture{height:450px}
+  .sculpture-scene{width:390px}
+  .sculpture-meaning{display:none}
+  .position-sculpture>b{bottom:78px}
+}
+
+@media(prefers-reduced-motion:reduce){.position-sculpture:not(.has-rotated) .sculpture-scene{animation:none!important}}

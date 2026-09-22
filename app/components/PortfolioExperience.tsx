@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { type FormEvent, type PointerEvent, useState } from "react";
+import { type FormEvent, type KeyboardEvent, type PointerEvent, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useLang, type Lang } from "@/src/hooks/useLang";
 import type { Project } from "../types/project";
@@ -19,6 +19,7 @@ const copy = {
     system: "SYSTEM MAP", systemTitle: "FROM INTENT TO PRODUCTION.", systemIntro: "Capabilities are shown as a connected delivery path, not fictional proficiency percentages.",
     contact: "CONTACT", contactTitle: "BRING THE HARD PROBLEM.", contactText: "Tell me what needs to exist, what is broken, or what has to scale. I will respond with questions that move it forward.",
     name: "YOUR NAME", email: "YOUR EMAIL", message: "THE PROBLEM / IDEA", send: "SEND MESSAGE", sending: "SENDING…", sent: "MESSAGE SENT", error: "COULD NOT SEND — TRY AGAIN", portrait: "Portrait of Komron Nazarov",
+    sculptureProduct: "PRODUCT", sculptureEngineering: "ENGINEERING", sculptureManagement: "MANAGEMENT", sculptureRoute: "INTENT → SYSTEM → RELEASE", sculptureHint: "DRAG TO ROTATE · DOUBLE-CLICK TO RESET", sculptureLabel: "Interactive model: product intent, engineering system and delivery management", sculptureMeaning: ["DEFINE THE VALUE", "BUILD THE SYSTEM", "CONTROL THE RELEASE"], sculptureInitials: ["P","E","M"],
   },
   ru: {
     status: "ОТКРЫТ К СЕРЬЁЗНЫМ ПРОЕКТАМ", over: "SOFTWARE ENGINEER / FULL-STACK РАЗРАБОТЧИК", title: "Я СОЗДАЮ ВСЮ СИСТЕМУ.",
@@ -30,6 +31,7 @@ const copy = {
     system: "КАРТА СИСТЕМЫ", systemTitle: "ОТ ЗАДАЧИ ДО PRODUCTION.", systemIntro: "Навыки показаны как связанный путь разработки, а не выдуманные проценты владения.",
     contact: "КОНТАКТ", contactTitle: "ПРИНЕСИТЕ СЛОЖНУЮ ЗАДАЧУ.", contactText: "Расскажите, что нужно создать, что не работает или что должно масштабироваться. Я отвечу вопросами, которые двигают задачу вперёд.",
     name: "ВАШЕ ИМЯ", email: "ВАШ EMAIL", message: "ЗАДАЧА / ИДЕЯ", send: "ОТПРАВИТЬ", sending: "ОТПРАВКА…", sent: "СООБЩЕНИЕ ОТПРАВЛЕНО", error: "ОШИБКА — ПОПРОБУЙТЕ ЕЩЁ", portrait: "Портрет Комрона Назарова",
+    sculptureProduct: "ПРОДУКТ", sculptureEngineering: "ИНЖЕНЕРИЯ", sculptureManagement: "УПРАВЛЕНИЕ", sculptureRoute: "ЗАДАЧА → СИСТЕМА → ВЫПУСК", sculptureHint: "ПЕРЕТАЩИТЕ, ЧТОБЫ ВРАЩАТЬ · ДВОЙНОЙ КЛИК — СБРОС", sculptureLabel: "Интерактивная модель: продуктовая задача, инженерная система и управление выпуском", sculptureMeaning: ["ОПРЕДЕЛИТЬ ЦЕННОСТЬ", "ПОСТРОИТЬ СИСТЕМУ", "УПРАВЛЯТЬ ВЫПУСКОМ"], sculptureInitials: ["П","И","У"],
   },
   tj: {
     status: "БАРОИ ЛОИҲАҲОИ ҶИДДӢ ОМОДААМ", over: "МУҲАНДИСИ БАРНОМА / FULL-STACK", title: "МАН ТАМОМИ СИСТЕМАРО МЕСОЗАМ.",
@@ -41,6 +43,7 @@ const copy = {
     system: "ХАРИТАИ СИСТЕМА", systemTitle: "АЗ НИЯТ ТО PRODUCTION.", systemIntro: "Қобилиятҳо ҳамчун роҳи пайвастаи таҳия нишон дода шудаанд, на фоизҳои сохта.",
     contact: "ТАМОС", contactTitle: "МАСЪАЛАИ ДУШВОРРО БИЁРЕД.", contactText: "Бигӯед, ки чӣ бояд сохта шавад, чӣ кор намекунад ё чӣ бояд васеъ гардад. Ман бо саволҳое ҷавоб медиҳам, ки корро пеш мебаранд.",
     name: "НОМИ ШУМО", email: "EMAIL-И ШУМО", message: "МАСЪАЛА / ҒОЯ", send: "ФИРИСТОДАН", sending: "ФИРИСТОДА ИСТОДААСТ…", sent: "ПАЁМ ФИРИСТОДА ШУД", error: "ХАТО — БОЗ КӮШИШ КУНЕД", portrait: "Акси Комрон Назаров",
+    sculptureProduct: "МАҲСУЛОТ", sculptureEngineering: "МУҲАНДИСӢ", sculptureManagement: "ИДОРАКУНӢ", sculptureRoute: "МАСЪАЛА → СИСТЕМА → НАШР", sculptureHint: "БАРОИ ГАРДОНДАН КАШЕД · ДУ КЛИК — БАРҚАРОР", sculptureLabel: "Модели интерактивӣ: масъалаи маҳсулотӣ, системаи муҳандисӣ ва идоракунии нашр", sculptureMeaning: ["АРЗИШРО МУАЙЯН КАРДАН", "СИСТЕМАРО СОХТАН", "НАШРРО ИДОРА КАРДАН"], sculptureInitials: ["М","М","И"],
   },
 } as const;
 
@@ -138,11 +141,16 @@ export default function PortfolioExperience({ projectItems }: { projectItems: Pr
   const projects = projectItems.length ? projectItems : [];
   const [active, setActive] = useState(0); const [projectExpanded, setProjectExpanded] = useState(false); const [formState,setFormState]=useState<"idle"|"sending"|"sent"|"error">("idle");
   const [activeRoadmap, setActiveRoadmap] = useState(0);
+  const sculptureDrag = useRef({ active:false, pointerId:-1, lastX:0, lastY:0, rx:-6, ry:14 });
   const { lang } = useLang(); const t = copy[lang]; const x = extraCopy[lang]; const n = narrativeCopy[lang]; const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll(); const progress = useSpring(scrollYProgress,{stiffness:130,damping:30,mass:.2});
   const reveal = reduce ? {} : { initial:{opacity:0,y:54},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.18},transition:{duration:.75,ease:[.16,1,.3,1] as [number,number,number,number]} };
-  function moveSculpture(e:PointerEvent<HTMLDivElement>){const r=e.currentTarget.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;e.currentTarget.style.setProperty("--scene-rx",`${-y*20}deg`);e.currentTarget.style.setProperty("--scene-ry",`${x*26}deg`);e.currentTarget.style.setProperty("--scene-x",`${x*26}px`);e.currentTarget.style.setProperty("--scene-y",`${y*18}px`)}
-  function resetSculpture(e:PointerEvent<HTMLDivElement>){e.currentTarget.style.setProperty("--scene-rx","0deg");e.currentTarget.style.setProperty("--scene-ry","0deg");e.currentTarget.style.setProperty("--scene-x","0px");e.currentTarget.style.setProperty("--scene-y","0px")}
+  function applySculpture(element:HTMLDivElement){element.style.setProperty("--scene-rx",`${sculptureDrag.current.rx}deg`);element.style.setProperty("--scene-ry",`${sculptureDrag.current.ry}deg`)}
+  function beginSculpture(e:PointerEvent<HTMLDivElement>){if(e.pointerType==="mouse"&&e.button!==0)return;const drag=sculptureDrag.current;drag.active=true;drag.pointerId=e.pointerId;drag.lastX=e.clientX;drag.lastY=e.clientY;e.currentTarget.setPointerCapture?.(e.pointerId);e.currentTarget.classList.add("is-dragging","has-rotated")}
+  function moveSculpture(e:PointerEvent<HTMLDivElement>){const drag=sculptureDrag.current;if(!drag.active||drag.pointerId!==e.pointerId)return;const dx=e.clientX-drag.lastX;const dy=e.clientY-drag.lastY;drag.ry+=dx*.42;drag.rx=Math.max(-48,Math.min(48,drag.rx-dy*.34));drag.lastX=e.clientX;drag.lastY=e.clientY;applySculpture(e.currentTarget)}
+  function endSculpture(e:PointerEvent<HTMLDivElement>){const drag=sculptureDrag.current;if(drag.pointerId!==e.pointerId)return;drag.active=false;e.currentTarget.releasePointerCapture?.(e.pointerId);e.currentTarget.classList.remove("is-dragging")}
+  function resetSculpture(e:{currentTarget:HTMLDivElement}){sculptureDrag.current.rx=-6;sculptureDrag.current.ry=14;applySculpture(e.currentTarget);e.currentTarget.classList.remove("has-rotated")}
+  function keySculpture(e:KeyboardEvent<HTMLDivElement>){const drag=sculptureDrag.current;if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home"].includes(e.key))return;e.preventDefault();if(e.key==="Home"){drag.rx=-6;drag.ry=14}else if(e.key==="ArrowLeft")drag.ry-=8;else if(e.key==="ArrowRight")drag.ry+=8;else if(e.key==="ArrowUp")drag.rx=Math.min(48,drag.rx+8);else drag.rx=Math.max(-48,drag.rx-8);e.currentTarget.classList.add("has-rotated");applySculpture(e.currentTarget)}
   async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setFormState("sending");const body=Object.fromEntries(new FormData(e.currentTarget));try{const r=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});if(!r.ok)throw new Error();setFormState("sent");e.currentTarget.reset()}catch{setFormState("error")}}
   return <div className="portfolio-next">
     <motion.div className="scroll-progress" style={{scaleX:progress}} />
@@ -170,7 +178,7 @@ export default function PortfolioExperience({ projectItems }: { projectItems: Pr
     <section id="about" className="section-next statement shell" data-index="02">
       <motion.div {...reveal}><p className="eyebrow">02 / {t.about}</p><h2>{t.aboutTitle}</h2></motion.div>
       <motion.p {...reveal}>{t.aboutText}</motion.p>
-      <div className="position-sculpture" aria-hidden="true" onPointerDown={moveSculpture} onPointerMove={moveSculpture} onPointerUp={resetSculpture} onPointerCancel={resetSculpture} onPointerLeave={resetSculpture}><div className="sculpture-axis axis-x"/><div className="sculpture-axis axis-y"/><div className="sculpture-scene"><div className="sculpture-orbit orbit-a"/><div className="sculpture-orbit orbit-b"/><i data-layer="PRODUCT"/><i data-layer="ENGINEERING"/><i data-layer="MANAGEMENT"/><div className="sculpture-core"><span>P</span><span>E</span><span>M</span></div></div><b>PRODUCT<br/>× ENGINEERING<br/>× MANAGEMENT</b><small>MOVE / TILT / ASSEMBLE</small></div>
+      <div className="position-sculpture" role="img" aria-label={t.sculptureLabel} tabIndex={0} onPointerDown={beginSculpture} onPointerMove={moveSculpture} onPointerUp={endSculpture} onPointerCancel={endSculpture} onDoubleClick={resetSculpture} onKeyDown={keySculpture}><div className="sculpture-axis axis-x"/><div className="sculpture-axis axis-y"/><div className="sculpture-scene"><div className="sculpture-orbit orbit-a"/><div className="sculpture-orbit orbit-b"/><i data-layer={t.sculptureProduct}/><i data-layer={t.sculptureEngineering}/><i data-layer={t.sculptureManagement}/><div className="sculpture-core">{t.sculptureInitials.map((letter,i)=><span key={`${letter}-${i}`}>{letter}</span>)}</div></div><b>{t.sculptureRoute}</b><div className="sculpture-meaning" aria-hidden="true">{t.sculptureMeaning.map((item,i)=><span key={item}><i>0{i+1}</i>{item}</span>)}</div><small>{t.sculptureHint}</small></div>
       <div className="position-principles">{n.principles.map(([title,text],i)=><motion.article key={title} {...reveal} transition={{duration:.65,delay:i*.08}}><span>0{i+1}</span><h3>{title}</h3><p>{text}</p></motion.article>)}</div>
       <div className="statement-line" aria-hidden="true"><span>INTERFACE</span><i>→</i><span>LOGIC</span><i>→</i><span>DATA</span><i>→</i><span>DELIVERY</span></div>
     </section>

@@ -7,6 +7,7 @@ import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useLang, type Lang } from "@/src/hooks/useLang";
 import type { Project } from "../types/project";
 import CapabilityGraph from "./CapabilityGraph";
+import AmbientConnections from "./AmbientConnections";
 
 const copy = {
   en: {
@@ -155,6 +156,7 @@ export default function PortfolioExperience({ projectItems }: { projectItems: Pr
   return <div className="portfolio-next">
     <motion.div className="scroll-progress" style={{scaleX:progress}} />
     <section className="hero-next shell" aria-labelledby="hero-title">
+      <AmbientConnections />
       <div className="hero-next-copy">
         <div className="hero-kicker"><p className="hero-availability">{t.status}</p><p className="hero-specialty">{t.over}</p></div>
         <h1 id="hero-title" aria-label={t.title}>{(lang === "ru" ? ["Я СОЗДАЮ", "ВСЮ", "СИСТЕМУ."] : lang === "tj" ? ["МАН ТАМОМИ", "СИСТЕМАРО", "МЕСОЗАМ."] : ["I BUILD", "THE WHOLE", "SYSTEM."]).map((line,i)=><span className={`hero-line hero-line-${i+1}`} aria-hidden="true" key={line} style={{animationDelay:`${.2+i*.16}s`}}>{line}</span>)}</h1><p className="hero-next-lead">{t.intro}</p>

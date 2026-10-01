@@ -461,3 +461,13 @@
 }
 
 @media(prefers-reduced-motion:reduce){.position-sculpture:not(.has-rotated) .sculpture-scene{animation:none!important}}
+
+/* Pointer light sits beneath the portrait and copy, never above readable content. */
+.ambient-connections{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+@media(hover:hover) and (pointer:fine){
+  .portfolio-next a:hover,.site-nav a:hover,.site-footer a:hover{filter:drop-shadow(0 0 9px rgba(231,22,40,.32))}
+  .portfolio-next button:not(:disabled):hover{box-shadow:inset 0 0 24px rgba(231,22,40,.09),0 0 18px rgba(231,22,40,.12);border-color:rgba(231,22,40,.6)}
+  .contact-next label:focus-within{box-shadow:0 7px 16px -13px #e71628}
+}
+.portfolio-next :is(a,button,input,textarea):focus-visible{outline:2px solid #ed2838;outline-offset:5px}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.ambient-connections{display:none}}
